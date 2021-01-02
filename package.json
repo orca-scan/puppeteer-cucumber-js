@@ -4,7 +4,8 @@
   "description": "JavaScript browser automation framework using official puppeteer and cucumber-js",
   "main": "index.js",
   "scripts": {
-    "test": "node index.js"
+    "test": "node index.js",
+    "start": "node index.js"
   },
   "author": "https://orcascan.com",
   "license": "ISC",

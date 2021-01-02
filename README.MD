@@ -29,7 +29,11 @@ npm install puppeteer-cucumber-js --save-dev
 ## Usage
 
 ```bash
-node ./node_modules/puppeteer-cucumber-js/index.js -s ./step-definitions
+# if install within your project
+node ./node_modules/puppeteer-cucumber-js/index.js
+
+# if cloned
+cd puppeteer-cucumber-js && npm install && npm start
 ```
 
 ### Options
