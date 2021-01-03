@@ -62,7 +62,7 @@ Firefox    | `-b firefox`
 
 ### Directory structure
 
-Your BDD files must live in a `features` folder within the root of your project:
+Your files must live in a `features` folder within the root of your project:
 
 ```bash
 .
@@ -82,58 +82,50 @@ Your BDD files must live in a `features` folder within the root of your project:
 
 ### Feature files
 
-A feature file is a [Business Readable, Domain Specific Language](http://martinfowler.com/bliki/BusinessReadableDSL.html) file that lets you describe software behavior without detailing how that behavior is implemented. Feature files are written using the [Gherkin syntax](https://github.com/cucumber/cucumber/wiki/Gherkin) and must live in a folder named **features** within the root of your project.
+A feature file is a [Business Readable, Domain Specific Language](http://martinfowler.com/bliki/BusinessReadableDSL.html) file that lets you describe software behavior without detailing how that behavior is implemented. Feature files are written using the [Gherkin syntax](https://github.com/cucumber/cucumber/wiki/Gherkin).
 
 ```gherkin
 # ./features/google-search.feature
 
-Feature: Searching for vote cards app
-  As an internet user
-  In order to find out more about the itunes vote cards app
-  I want to be able to search for information about the itunes vote cards app
+Feature: Searching for a barcode scanner app
+  
+  Scenario: Google search for barcode scanner app
+    Given I am online at google.co.uk
+    When I search Google for "barcode scanner app"
+    Then I should see "Orca Scan" in the results
 
-  Scenario: Google search for vote cards app
-    When I search Google for "itunes vote cards app"
-    Then I should see some results
+  Scenario: Google search for Orca Scan
+    Given I am online at google.co.uk
+    When I search Google for "Orca Scan"
+    Then I should see "Orca Scan" in the results
 ```
-
-### Browser teardown strategy
-
-The browser automatically closes after each scenario to ensure the next scenario uses a fresh browser environment. But
-you can change this behavior with the "-k" or the "--browser-teardown" parameter.
-
-Value      |  Description
----------- | ---------------
-`always`   | the browser automatically closes (default)
-`clear`    | the browser automatically clears cookies, local and session storages
-`none`     | the browser does nothing
 
 ### Step definitions
 
 Step definitions act as the glue between features files and the actual system under test.
 
-_To avoid confusion **always** return a JavaScript promise from your step definition in order to let cucumber know when your task has completed._
+_To avoid confusion **always** return a JavaScript promise from your step definition to let cucumber know when your task has completed._
 
 ```javascript
 // ./step-definitions/google-search-steps.js
 
-module.exports = function () {
+this.Given(/^I am online at google.co.uk/, function() {
 
-    this.Then(/^I should see some results$/, function () {
+    // use the ./page-objects/google-search.js url property
+    return helpers.loadPage(pageObjects.googleSearch.url);
+});
 
-        // driver wait returns a promise so return that
-        return driver.wait(until.elementsLocated(by.css('div.g')), 10000).then(function(){
+this.When(/^I search Google for "([^"]*)"$/, function (searchQuery) {
 
-            // return the promise of an element to the following then.
-            return driver.findElements(by.css('div.g'));
-        })
-        .then(function (elements) {
+    // execute ./page-objects/google-search.js preformSearch method
+    return pageObjects.googleSearch.preformSearch(searchQuery);
+});
 
-            // verify this element has children
-            expect(elements.length).to.not.equal(0);
-        });
-    });
-};
+this.Then(/^I should see "([^"]*)" in the results$/, function (keywords) {
+
+    // resolves if an item on the page contains text
+    return helpers.waitForLinkText(keywords, false, 30);
+});
 ```
 
 The following variables are available within the ```Given()```, ```When()``` and ```Then()``` functions:
@@ -165,38 +157,36 @@ module.exports = {
 
     url: 'http://www.google.co.uk',
 
-    elements: {
-        searchInput: 'q',
-        searchResultLink: 'div.g > h3 > a'
+    selectors: {
+        searchInput: '[name="q"]',
+        searchResultLink: 'a > h3 > span',
+        cookieIFrame: 'iframe[src*="consent.google.com"]',
+        cookieAgreeButton: '#introAgreeButton > span > span'
     },
 
     /**
      * enters a search term into Google's search box and presses enter
-     * @param {string} searchQuery
+     * @param {string} searchQuery - phrase to search google with
      * @returns {Promise} a promise to enter the search values
      */
-    performSearch: function (searchQuery) {
+    preformSearch: async function (searchQuery) {
 
-        var selector = page.googleSearch.elements.searchInput;
+        // get the selector above (pageObjects.googleSearch is this object)
+        var selector = pageObjects.googleSearch.selectors.searchInput;
 
-        // return a promise so the calling function knows the task has completed
-        return driver.findElement(selector).sendKeys(searchQuery, selenium.Key.ENTER);
+        // accept Googles `Before you continue` cookie dialog
+        await helpers.clickElementWithinFrame(pageObjects.googleSearch.selectors.cookieIFrame, pageObjects.googleSearch.selectors.cookieAgreeButton);
+
+        // set focus to the search box
+        await page.focus(selector);
+
+        // enter the search query
+        await page.keyboard.type(searchQuery, { delay: 100 });
+
+        // press enter
+        return page.keyboard.press('Enter');
     }
 };
-```
-
-And its usage within a step definition:
-
-```js
-// ./step-definitions/google-search-steps.js
-this.When(/^I search Google for "([^"]*)"$/, function (searchQuery) {
-
-    return helpers.loadPage('http://www.google.com').then(function() {
-
-        // use a method on the page object which also returns a promise
-        return page.googleSearch.performSearch(searchQuery);
-    })
-});
 ```
 
 ### Shared objects
@@ -304,6 +294,16 @@ module.exports = function () {
     });
 };
 ```
+
+### Browser teardown strategy
+
+The browser automatically closes after each scenario to ensure the next scenario uses a fresh browser environment. You can change this behavior with the "--browser-teardown" parameter, options are:
+
+Value      |  Description
+---------- | ---------------
+`always`   | the browser automatically closes (default)
+`clear`    | the browser automatically clears cookies, local and session storages
+`none`     | the browser does nothing
 
 ### Reports
 
