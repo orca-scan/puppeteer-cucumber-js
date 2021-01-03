@@ -292,7 +292,7 @@ HTML and JSON reports are automatically generated and stored in the default `./r
 
 ### Directory structure
 
-Your [puppeteer-cucumber-js](https://github.com/orca-scan/puppeteer-cucumber-js) files must live in a `features` folder in the root of your project:
+Your files must live in a `features` folder within the root of your project:
 
 ```bash
 .
