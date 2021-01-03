@@ -51,10 +51,10 @@ module.exports = {
             return Array.prototype.slice.call(document.querySelectorAll('a')).some(function(link) {
 
                 if (exactMatch) {
-                    return link.textContent.indexOf(textToFind) > -1;
+                    return link.textContent === textToFind;
                 }
 
-                return link.textContent === textToFind;
+                return link.textContent.indexOf(textToFind) > -1;
             });
 
         }, { timeout: timeout }, text, exact);
