@@ -40,8 +40,8 @@ node ./node_modules/puppeteer-cucumber-js/index.js
 ```bash
 --tags <tagName>                # name of the cucumber tag to run
 --featureFile <path>            # a specific feature file to run
---browser <path>                # name of browser to use. defaults to chrome
---browser-teardown <optional>   # browser teardown after every scenario (always, clear, none). default "always"
+--browser <path>                # name of browser to use (chrome, firefox). defaults to chrome
+--browser-teardown <optional>   # browser teardown after each scenario (always, clear, none). default "always"
 --headless                      # run browser in headless mode. defaults to false
 --devTools                      # auto-open a DevTools. if true headless mode is disabled. default false
 --noScreenshot                  # disable auto capturing of screenshots when an error is encountered
@@ -52,13 +52,6 @@ node ./node_modules/puppeteer-cucumber-js/index.js
 --version                       # outputs puppeteer-cucumber-js version number
 --help                          # list puppeteer-cucumber-js options
 ```
-
-By default tests are run using Google Chrome, to run tests using another browser supply the name of that browser along with the `-b` switch. Available options are:
-
-Browser    | Example
----------- | ---------------
-Chrome     | `-b chrome`
-Firefox    | `-b firefox`
 
 ### Directory structure
 
