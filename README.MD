@@ -60,6 +60,27 @@ Browser    | Example
 Chrome     | `-b chrome`
 Firefox    | `-b firefox`
 
+### Directory structure
+
+Your BDD files must live in a `features` folder within the root of your project:
+
+```bash
+.
+└── features
+    ├── page-objects
+    │   └── google-search.js
+    ├── reports
+    │   ├── cucumber-report.html
+    │   ├── cucumber-report.json
+    │   └── junit-report.xml
+    ├── shared-objects
+    │   └── test-data.js
+    └── step-definitions
+    │   └── google-search-steps.js
+    └── google-search.feature
+```
+
+
 ### Feature files
 
 A feature file is a [Business Readable, Domain Specific Language](http://martinfowler.com/bliki/BusinessReadableDSL.html) file that lets you describe software’s behavior without detailing how that behavior is implemented. Feature files are written using the [Gherkin syntax](https://github.com/cucumber/cucumber/wiki/Gherkin) and must live in a folder named **features** within the root of your project.
@@ -290,26 +311,6 @@ module.exports = function () {
 HTML and JSON reports are automatically generated and stored in the default `./reports` folder. This location can be changed by providing a new path using the `-r` command line switch:
 
 ![Cucumber HTML report](img/cucumber-html-report.png)
-
-### Directory structure
-
-Your files must live in a `features` folder within the root of your project:
-
-```bash
-.
-└── features
-    ├── page-objects
-    │   └── google-search.js
-    ├── reports
-    │   ├── cucumber-report.html
-    │   ├── cucumber-report.json
-    │   └── junit-report.xml
-    ├── shared-objects
-    │   └── test-data.js
-    └── step-definitions
-    │   └── google-search-steps.js
-    └── google-search.feature
-```
 
 ### How to debug
 
