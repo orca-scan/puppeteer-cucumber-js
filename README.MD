@@ -330,10 +330,20 @@ Value      |  Description
 
 ## Demo
 
-This project includes an example to help you get started. You can run the example using the following command:
+To demo the framework without installing in your project run the example using the following command:
 
 ```bash
-node ./node_modules/puppeteer-cucumber-js/index.js
+# download this example code
+git clone https://github.com/orca-scan/puppeteer-cucumber-js.git
+
+# go into the new directory
+cd puppeteer-cucumber-js
+
+# install dependencies
+npm install
+
+# run the google search feature
+node index
 ```
 
 ## Bugs
