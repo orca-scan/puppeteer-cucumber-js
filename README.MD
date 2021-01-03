@@ -214,6 +214,33 @@ module.exports = function () {
 ```js
 // Load a URL, returning only when all network activity has finished
 helpers.loadPage('http://www.google.com');
+
+// Removes an element from the dom
+helpers.removeElement('p > span');
+
+// Waits for text to appear on the page
+helpers.waitForLinkText('Orca Scan', false, 30);
+
+// Waits for the browser to fire an event (including custom events)
+helpers.waitForEvent('app-ready');
+
+// Gets an element within an iframe
+helpers.getElementWithinFrame('iframe[src*="consent.google.com"]', '#introAgreeButton > span > span');
+
+// Clicks an element within an iframe
+helpers.clickElementWithinFrame('iframe[src*="consent.google.com"]', '#introAgreeButton > span > span');
+
+// Removes all browser cookies
+helpers.clearCookies();
+
+// Clears localStorage
+helpers.clearLocalStorage();
+
+// Clears sessionStorage
+helpers.clearSessionStorage();
+
+// Clears cookies and storage
+helpers.clearCookiesAndStorages();
 ```
 
 ### Before/After hooks
