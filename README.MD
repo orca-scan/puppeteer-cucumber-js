@@ -308,8 +308,6 @@ HTML and JSON reports are automatically generated and stored in the default `./r
 
 ### How to debug
 
-Most selenium methods return a [JavaScript Promise](https://spring.io/understanding/javascript-promises "view JavaScript promise introduction") that is resolved when the method completes. The easiest way to step in with a debugger is to add a ```.then``` method to a selenium function and place a ```debugger``` statement within it, for example:
-
 ```js
 module.exports = function () {
 
