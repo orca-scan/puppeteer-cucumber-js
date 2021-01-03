@@ -1,5 +1,7 @@
 # puppeteer-cucumber-js
 
+[![License: MIT](https://img.shields.io/badge/License-ISC-yellow.svg)](https://opensource.org/licenses/ISC)
+
 JavaScript browser automation framework using official [puppeteer](https://github.com/puppeteer/puppeteer "view puppeteer documentation") and [cucumber-js](https://github.com/cucumber/cucumber-js "view cucumber js documentation").
 
 **Table of Contents**
