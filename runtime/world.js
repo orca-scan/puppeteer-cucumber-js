@@ -133,7 +133,7 @@ module.exports = async function () {
                 headless: headless === true,
                 product: browserName || 'chrome',
                 defaultViewport: null,
-                devtools: false,
+                devtools: devTools === true,
                 slowMo: 10, // slow down by 10ms so we can view in headful mode
                 args: [
                     `--window-size=${browserWidth},${browserHeight}`

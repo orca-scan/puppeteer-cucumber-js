@@ -50,6 +50,7 @@ cd puppeteer-cucumber-js && npm install && npm start
 -f, --featureFile <path>            a specific feature file to run
 -x, --timeOut <n>                   steps definition timeout in milliseconds. defaults to 10 seconds
 -n, --noScreenshot                  disable auto capturing of screenshots when an error is encountered
+--devTools                          auto-open a DevTools. if true headless mode is disabled. default false
 ```
 
 By default tests are run using Google Chrome, to run tests using another browser supply the name of that browser along with the `-b` switch. Available options are:

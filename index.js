@@ -31,7 +31,8 @@ var config = {
     browser: 'chrome',
     browserTeardownStrategy: 'always',
     timeout: 15000,
-    headless: false
+    headless: false,
+    devTools: false
 };
 
 program
@@ -47,6 +48,7 @@ program
     .option('-x, --timeOut <n>', 'steps definition timeout in milliseconds. defaults to ' + config.timeout, coerceInt, config.timeout)
     .option('-n, --noScreenshot [optional]', 'disable auto capturing of screenshots when an error is encountered')
     .option('-w, --worldParameters <JSON>', 'JSON object to pass to cucumber-js world constructor. defaults to empty', config.worldParameters)
+    .option('--devTools', 'auto-open a DevTools. if true headless mode is disabled.', config.devTools)
     .parse(process.argv);
 
 program.on('--help', function () {
@@ -59,6 +61,9 @@ global.browserTeardownStrategy = program.browserTeardown;
 
 // should the browser be headless?
 global.headless = program.headless;
+
+// pass dev tools option
+global.devTools = program.devTools;
 
 // used within world.js to import page objects
 global.pageObjectPath = path.resolve(config.pageObjects);

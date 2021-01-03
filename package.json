@@ -52,6 +52,7 @@
       "browser": true
     },
     "globals": {
+      "devTools": true,
       "headless": true,
       "helpers": true,
       "browserTeardownStrategy": true,
