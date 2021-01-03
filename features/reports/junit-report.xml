@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<testsuites>
+    <testsuite name="book-and-orca-scan-demo;book-an-orca-scan-demo" tests="3" failures="1" skipped="1">
+        <properties>
+            <property name="URI" value="/Users/JD/Projects/john-doherty/puppeteer-cucumber-js/features/orca-scan-demo.feature">
+            </property>
+        </properties>
+        <testcase name="Given I am on the Orca Scan barcode app website" classname="book-and-orca-scan-demo;book-an-orca-scan-demo" time="2.717156201">
+        </testcase>
+        <testcase name="When I click the &quot;Book a demo&quot; button" classname="book-and-orca-scan-demo;book-an-orca-scan-demo" time="0.000109855">
+            <failure message="function has 0 arguments, should have 1 (if synchronous or returning a promise) or 2 (if accepting a callback)">function has 0 arguments, should have 1 (if synchronous or returning a promise) or 2 (if accepting a callback)</failure>
+        </testcase>
+        <testcase name="Then I should be able to book an &quot;Orca Scan Demo&quot;" classname="book-and-orca-scan-demo;book-an-orca-scan-demo">
+            <skipped message="">
+            </skipped>
+        </testcase>
+    </testsuite>
+</testsuites>
