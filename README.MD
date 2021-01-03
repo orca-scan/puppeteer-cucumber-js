@@ -262,6 +262,26 @@ HTML and JSON reports are automatically generated and stored in the default `./r
 
 ![Cucumber HTML report](img/cucumber-html-report.png)
 
+### Directory structure
+
+Your [puppeteer-cucumber-js](https://github.com/orca-scan/puppeteer-cucumber-js) files must live in a `features` folder in the root of your project:
+
+```bash
+.
+└── features
+   │   google-search.feature
+   └── step_definitions
+   │   └── google-search-steps.js
+   └── page_objects
+   │   └── google-search.js
+   └── shared_objects
+   │   ├── test-data.js
+   │   └── stuff.json
+   └── reports
+       ├── cucumber-report.json
+       └── cucumber-report.html
+```
+
 ### How to debug
 
 Most selenium methods return a [JavaScript Promise](https://spring.io/understanding/javascript-promises "view JavaScript promise introduction") that is resolved when the method completes. The easiest way to step in with a debugger is to add a ```.then``` method to a selenium function and place a ```debugger``` statement within it, for example:
@@ -284,26 +304,6 @@ module.exports = function () {
         });
     });
 };
-```
-
-### Directory structure
-
-You can use the framework without any command line arguments if your application uses the following folder structure:
-
-```bash
-.
-└── features
-   │   google-search.feature
-   └── step_definitions
-   │   └── google-search-steps.js
-   └── page_objects
-   │   └── google-search.js
-   └── shared_objects
-   │   ├── test-data.js
-   │   └── stuff.json
-   └── reports
-       ├── cucumber-report.json
-       └── cucumber-report.html
 ```
 
 ## Demo
