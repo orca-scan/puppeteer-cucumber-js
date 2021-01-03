@@ -1,12 +1,12 @@
-const helpers = require('../../runtime/helpers');
-
 module.exports = {
 
     url: 'http://www.google.co.uk',
 
-    elements: {
+    selectors: {
         searchInput: '[name="q"]',
-        searchResultLink: 'a > h3 > span'
+        searchResultLink: 'a > h3 > span',
+        cookieIFrame: 'iframe[src*="consent.google.com"]',
+        cookieAgreeButton: '#introAgreeButton > span > span'
     },
 
     /**
@@ -17,10 +17,10 @@ module.exports = {
     preformSearch: async function (searchQuery) {
 
         // get the selector above (pageObjects.googleSearch is this object)
-        var selector = pageObjects.googleSearch.elements.searchInput;
+        var selector = pageObjects.googleSearch.selectors.searchInput;
 
         // accept Googles `Before you continue` cookie dialog
-        await helpers.clickElementWithinFrame('iframe[src*="consent.google.com"]', '#introAgreeButton > span > span');
+        await helpers.clickElementWithinFrame(pageObjects.googleSearch.selectors.cookieIFrame, pageObjects.googleSearch.selectors.cookieAgreeButton);
 
         // set focus to the search box
         await page.focus(selector);

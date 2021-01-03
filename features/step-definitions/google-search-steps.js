@@ -1,14 +1,15 @@
-const helpers = require("../../runtime/helpers");
-
 module.exports = function () {
+
+    this.Given(/^I am online at google.co.uk/, function() {
+
+        // use the ./page-objects/google-search.js url property
+        return helpers.loadPage(pageObjects.googleSearch.url);
+    });
 
     this.When(/^I search Google for "([^"]*)"$/, function (searchQuery) {
 
-        return helpers.loadPage('http://www.google.com').then(function() {
-
-            // use a method on the pageObject which also returns a promise
-            return pageObjects.googleSearch.preformSearch(searchQuery);
-        });
+        // execute ./page-objects/google-search.js preformSearch method
+        return pageObjects.googleSearch.preformSearch(searchQuery);
     });
 
     this.Then(/^I should see "([^"]*)" in the results$/, function (keywords) {

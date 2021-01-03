@@ -1,16 +1,17 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <testsuites>
-    <testsuite name="searching-for-barcode-scanner-app;google-search-for-barcode-scanner-app" tests="2" failures="1" skipped="0">
+    <testsuite name="searching-for-a-barcode-scanner-app;google-search-for-barcode-scanner-app" tests="3" failures="0" skipped="0">
         <properties>
             <property name="@search" value="true">
             </property>
             <property name="URI" value="/Users/JD/Projects/john-doherty/puppeteer-cucumber-js/features/google-search.feature">
             </property>
         </properties>
-        <testcase name="When I search Google for &quot;Orca Scan&quot;" classname="searching-for-barcode-scanner-app;google-search-for-barcode-scanner-app" time="3.313034099">
+        <testcase name="Given I am online at google.co.uk" classname="searching-for-a-barcode-scanner-app;google-search-for-barcode-scanner-app" time="2.339741819">
         </testcase>
-        <testcase name="Then I should see &quot;Orca Scan&quot; in the results" classname="searching-for-barcode-scanner-app;google-search-for-barcode-scanner-app" time="15.003835649">
-            <failure message="function timed out after 15000 milliseconds">function timed out after 15000 milliseconds</failure>
+        <testcase name="When I search Google for &quot;Orca Scan&quot;" classname="searching-for-a-barcode-scanner-app;google-search-for-barcode-scanner-app" time="1.403082869">
+        </testcase>
+        <testcase name="Then I should see &quot;Orca Scan&quot; in the results" classname="searching-for-a-barcode-scanner-app;google-search-for-barcode-scanner-app" time="0.388190397">
         </testcase>
     </testsuite>
 </testsuites>

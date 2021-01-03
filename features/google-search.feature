@@ -1,9 +1,7 @@
 @search
-Feature: Searching for barcode scanner app
-  As an internet user
-  In order to learn out more about barcode scanner apps
-  I want to be able to search google and find the results
+Feature: Searching for a barcode scanner app
   
   Scenario: Google search for barcode scanner app
+    Given I am online at google.co.uk
     When I search Google for "Orca Scan"
     Then I should see "Orca Scan" in the results
