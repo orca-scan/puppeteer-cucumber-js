@@ -286,16 +286,6 @@ module.exports = function () {
 };
 ```
 
-### Browser teardown strategy
-
-The browser automatically closes after each scenario to ensure the next scenario uses a fresh browser environment. You can change this behavior with the "--browser-teardown" parameter, options are:
-
-Value      |  Description
----------- | ---------------
-`always`   | the browser automatically closes (default)
-`clear`    | the browser automatically clears cookies, local and session storages
-`none`     | the browser does nothing
-
 ### Reports
 
 HTML and JSON reports are automatically generated and stored in the default `./reports` folder. This location can be changed by providing a new path using the `-r` command line switch:
@@ -326,6 +316,16 @@ module.exports = function () {
 };
 ```
 
+### Browser teardown strategy
+
+The browser automatically closes after each scenario to ensure the next scenario uses a fresh browser environment. You can change this behavior with the "--browser-teardown" parameter, options are:
+
+Value      |  Description
+---------- | ---------------
+`always`   | the browser automatically closes (default)
+`clear`    | the browser automatically clears cookies, local and session storages
+`none`     | the browser does nothing
+
 ## Demo
 
 This project includes an example to help you get started. You can run the example using the following command:
@@ -340,7 +340,7 @@ Please raise bugs via the [puppeteer-cucumber-js issue tracker](https://github.c
 
 ## Contributing
 
-You can contribute by [raising bugs / suggesting improvements](https://github.com/orca-scan/puppeteer-cucumber-js/issues) or forking the project and submitting pull requests.
+PRs welcome 🤓
 
 ## License
 
