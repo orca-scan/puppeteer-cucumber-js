@@ -29,11 +29,7 @@ npm install puppeteer-cucumber-js --save-dev
 ## Usage
 
 ```bash
-# if install as a node module
 node ./node_modules/puppeteer-cucumber-js/index.js
-
-# if cloned
-cd puppeteer-cucumber-js && npm install && npm start
 ```
 
 ### Options
