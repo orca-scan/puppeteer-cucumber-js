@@ -130,7 +130,7 @@ Variable      | Description
 
 ### Page objects
 
-Page objects are accessible via a global ```pageObject``` variable and are automatically loaded from ```./page-objects``` _(or the path specified using the ```-p``` switch)_. Page objects are exposed via a camel-cased version of their filename, for example ```./page-objects/google-search.js``` becomes ```pageObjects.googleSearch```. You can also use subdirectories, for example ```./page-objects/dir/google-search.js``` becomes ```pageObjects.dir.googleSearch```.
+Page objects are accessible via a global ```pageObject``` variable and are automatically loaded from ```./features/page-objects``` folder. Page objects are exposed via a camel-cased version of their filename, for example ```./page-objects/google-search.js``` becomes ```pageObjects.googleSearch```. You can also use subdirectories, for example ```./page-objects/dir/google-search.js``` becomes ```pageObjects.dir.googleSearch```.
 
 Page objects also have access to the same runtime variables available to step definitions.
 
