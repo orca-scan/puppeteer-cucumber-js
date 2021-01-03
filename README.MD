@@ -296,18 +296,17 @@ Your files must live in a `features` folder within the root of your project:
 
 ```bash
 .
-└── features
-   │   google-search.feature
-   └── step_definitions
-   │   └── google-search-steps.js
-   └── page_objects
-   │   └── google-search.js
-   └── shared_objects
-   │   ├── test-data.js
-   │   └── stuff.json
-   └── reports
-       ├── cucumber-report.json
-       └── cucumber-report.html
+├── page-objects
+│   └── orca-scan.js
+├── reports
+│   ├── cucumber-report.html
+│   ├── cucumber-report.json
+│   └── junit-report.xml
+├── shared-objects
+│   └── test-data.js
+└── step-definitions
+│   └── orca-scan-demo-steps.js
+└── orca-scan-demo.feature
 ```
 
 ### How to debug
