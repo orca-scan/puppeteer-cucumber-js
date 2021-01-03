@@ -206,8 +206,20 @@ module.exports = function () {
 
     this.Given(/^I am logged in"$/, function () {
 
-        driver.findElement(by.name('usn')).sendKeys(shared.testData.username);
-        driver.findElement(by.name('pass')).sendKeys(shared.testData.password);
+        // set focus to username
+        await page.focus('#username');
+
+        // type username
+        await page.keyboard.type(shared.testData.username);
+
+        // set focus to password
+        await page.focus('#password');
+
+        // type password
+        await page.keyboard.type(shared.testData.password);
+
+        // press enter (submit form)
+        return page.keyboard.press('Enter');
     });
 };
 ```
