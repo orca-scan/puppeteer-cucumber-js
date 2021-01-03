@@ -209,7 +209,7 @@ module.exports = function () {
 
 ### Helpers
 
-The following helper methods to make working with puppeteer a bit easier:
+The following helper methods make working with puppeteer a bit easier:
 
 ```js
 // Load a URL, returning only when all network activity has finished
