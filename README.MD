@@ -39,18 +39,19 @@ cd puppeteer-cucumber-js && npm install && npm start
 ### Options
 
 ```bash
---tags <tagName>                # name of tag to run
+--tags <tagName>                # name of the cucumber tag to run
 --featureFile <path>            # a specific feature file to run
 --browser <path>                # name of browser to use. defaults to chrome
---browser-teardown <optional>   # browser teardown after every scenario (always, clear, none). defaults to "always"
+--browser-teardown <optional>   # browser teardown after every scenario (always, clear, none). default "always"
 --headless                      # run browser in headless mode. defaults to false
 --devTools                      # auto-open a DevTools. if true headless mode is disabled. default false
 --noScreenshot                  # disable auto capturing of screenshots when an error is encountered
 --disableLaunchReport           # disable auto opening the browser with test report
 --junit <path>                  # output path to save junit-report.xml. defaults to ./reports
 --timeOut <n>                   # steps definition timeout in milliseconds. defaults to 10 seconds
+--worldParameters <JSON>        # JSON object to pass to cucumber-js world constructor
 --version                       # outputs puppeteer-cucumber-js version number
---help                          # this list of options
+--help                          # list puppeteer-cucumber-js options
 ```
 
 By default tests are run using Google Chrome, to run tests using another browser supply the name of that browser along with the `-b` switch. Available options are:

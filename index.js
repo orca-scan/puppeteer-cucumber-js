@@ -38,17 +38,17 @@ var config = {
 program
     .version(pjson.version)
     .description(pjson.description)
-    .option('--headless', 'whether to run browser in headless mode. defaults to true unless the devtools option is true', config.headless)
+    .option('--tags <tagName>', 'name of the cucumber tag to run', collectPaths, [])
+    .option('--featureFiles <paths>', 'comma-separated list of feature files to run or path to directory defaults to ' + config.featureFiles, config.featureFiles)
     .option('--browser <path>', 'name of browser to use. defaults to ' + config.browser, config.browser)
     .option('--browser-teardown <optional>', 'browser teardown strategy after every scenario (always, clear, none). defaults to "always"', config.browserTeardownStrategy)
+    .option('--headless', 'whether to run browser in headless mode. defaults to true unless the devtools option is true', config.headless)
+    .option('--devTools', 'auto-open a DevTools. if true headless mode is disabled.', config.devTools)
+    .option('--noScreenshot [optional]', 'disable auto capturing of screenshots when an error is encountered')
     .option('--disableLaunchReport [optional]', 'Disables the auto opening the browser with test report')
     .option('--junit <path>', 'output path to save junit-report.xml defaults to ' + config.reports)
-    .option('--tags <tagName>', 'name of tag to run', collectPaths, [])
-    .option('--featureFiles <paths>', 'comma-separated list of feature files to run or path to directory defaults to ' + config.featureFiles, config.featureFiles)
     .option('--timeOut <n>', 'steps definition timeout in milliseconds. defaults to ' + config.timeout, coerceInt, config.timeout)
-    .option('--noScreenshot [optional]', 'disable auto capturing of screenshots when an error is encountered')
     .option('--worldParameters <JSON>', 'JSON object to pass to cucumber-js world constructor. defaults to empty', config.worldParameters)
-    .option('--devTools', 'auto-open a DevTools. if true headless mode is disabled.', config.devTools)
     .parse(process.argv);
 
 program.on('--help', function () {
