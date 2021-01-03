@@ -314,18 +314,7 @@ Most selenium methods return a [JavaScript Promise](https://spring.io/understand
 module.exports = function () {
 
     this.When(/^I search Google for "([^"]*)"$/, function (searchQuery, done) {
-
-        driver.findElement(by.name('q')).then(function(input) {
-            expect(input).to.exist;
-            debugger; // <<- your IDE should step in at this point, with the browser open
-            return input;
-        })
-        .then(function(input){
-            input.sendKeys(searchQuery);
-            input.sendKeys(selenium.Key.ENTER);
-
-            done(); // <<- let cucumber know you're done
-        });
+        // TODO: write a debug example
     });
 };
 ```
