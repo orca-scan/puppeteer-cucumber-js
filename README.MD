@@ -67,23 +67,22 @@ Your BDD files must live in a `features` folder within the root of your project:
 ```bash
 .
 └── features
-    ├── page-objects
-    │   └── google-search.js
-    ├── reports
-    │   ├── cucumber-report.html
-    │   ├── cucumber-report.json
-    │   └── junit-report.xml
-    ├── shared-objects
-    │   └── test-data.js
+    ├── google-search.feature
     └── step-definitions
     │   └── google-search-steps.js
-    └── google-search.feature
+    ├── page-objects
+    │   └── google-search.js
+    ├── shared-objects
+    │   └── test-data.js
+    └── reports
+        ├── cucumber-report.html
+        ├── cucumber-report.json
+        └── junit-report.xml
 ```
-
 
 ### Feature files
 
-A feature file is a [Business Readable, Domain Specific Language](http://martinfowler.com/bliki/BusinessReadableDSL.html) file that lets you describe software’s behavior without detailing how that behavior is implemented. Feature files are written using the [Gherkin syntax](https://github.com/cucumber/cucumber/wiki/Gherkin) and must live in a folder named **features** within the root of your project.
+A feature file is a [Business Readable, Domain Specific Language](http://martinfowler.com/bliki/BusinessReadableDSL.html) file that lets you describe software behavior without detailing how that behavior is implemented. Feature files are written using the [Gherkin syntax](https://github.com/cucumber/cucumber/wiki/Gherkin) and must live in a folder named **features** within the root of your project.
 
 ```gherkin
 # ./features/google-search.feature
