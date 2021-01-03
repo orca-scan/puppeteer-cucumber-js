@@ -125,7 +125,7 @@ The following variables are available within the ```Given()```, ```When()``` and
 
 Variable      | Description
 ------------- | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
-`helpers`     | a collection of [helper methods](runtime/helpers.js) _things selenium does not provide but really should!_
+`helpers`     | a collection of [helper methods](runtime/helpers.js) _things puppeteer does not provide but maybe should_
 `puppeteer`   | the raw [puppeteer](https://github.com/puppeteer/puppeteer) object
 `browser`     | instance of the puppeteer [browser](https://pptr.dev/#?product=Puppeteer&version=v5.5.0&show=api-class-browser) object
 `page`        | instance of the puppeteer [page](https://pptr.dev/#?product=Puppeteer&version=v5.5.0&show=api-class-page) object
