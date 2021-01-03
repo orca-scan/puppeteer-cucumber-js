@@ -209,7 +209,7 @@ module.exports = function () {
 
 ### Helpers
 
-`puppeteer-cucumber-js` contains a few helper methods to make working with selenium a bit easier, those methods are:
+The following helper methods to make working with puppeteer a bit easier:
 
 ```js
 // Load a URL, returning only when all network activity has finished
