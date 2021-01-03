@@ -10,6 +10,7 @@ JavaScript browser automation framework using official [puppeteer](https://githu
 * [Installation](#installation)
 * [Usage](#usage)
   * [Options](#options)
+  * [Directory structure](#directory-structure)
   * [Feature files](#feature-files)
   * [Step definitions](#step-definitions)
   * [Page objects](#page-objects)
@@ -18,10 +19,11 @@ JavaScript browser automation framework using official [puppeteer](https://githu
   * [Before/After hooks](#beforeafter-hooks)
   * [Reports](#reports)
   * [How to debug](#how-to-debug)
-  * [Directory structure](#directory-structure)
+  * [Browser teardown strategy](#browser-teardown-strategy)
 * [Demo](#demo)
 * [Bugs](#bugs)
 * [Contributing](#contributing)
+* [License](#license)
 
 ## Installation
 
