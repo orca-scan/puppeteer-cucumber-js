@@ -297,7 +297,7 @@ Your files must live in a `features` folder within the root of your project:
 
 ```bash
 .
-├── features
+└── features
     ├── page-objects
     │   └── google-search.js
     ├── reports
