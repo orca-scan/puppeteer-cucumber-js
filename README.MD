@@ -348,7 +348,7 @@ node index
 
 ## Bugs
 
-Please provide as much info as possible _(ideally code snippet)_ when [raising a bug](https://github.com/orca-scan/puppeteer-cucumber-js/issues)
+Please provide as much info as possible _(ideally a code snippet)_ when [raising a bug](https://github.com/orca-scan/puppeteer-cucumber-js/issues)
 
 ## Contributing
 
