@@ -348,7 +348,7 @@ node index
 
 ## Bugs
 
-Please raise bugs via the [puppeteer-cucumber-js issue tracker](https://github.com/orca-scan/puppeteer-cucumber-js/issues) and, if possible, please provide enough information to allow the bug to be reproduced.
+Please provide as much info as possible _(ideally code snippet)_ when [raising a bug](https://github.com/orca-scan/puppeteer-cucumber-js/issues)
 
 ## Contributing
 
