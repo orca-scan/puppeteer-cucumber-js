@@ -130,7 +130,7 @@ module.exports = async function () {
 
         if (!global.browser) {
             global.browser = await puppeteer.launch({
-                headless: false,
+                headless: headless === true,
                 product: browserName || 'chrome',
                 defaultViewport: null,
                 devtools: false,

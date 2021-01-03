@@ -52,6 +52,7 @@
       "browser": true
     },
     "globals": {
+      "headless": true,
       "helpers": true,
       "browserTeardownStrategy": true,
       "page": true,

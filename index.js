@@ -30,12 +30,14 @@ var config = {
     reports: './features/reports',
     browser: 'chrome',
     browserTeardownStrategy: 'always',
-    timeout: 15000
+    timeout: 15000,
+    headless: false
 };
 
 program
     .version(pjson.version)
     .description(pjson.description)
+    .option('-h, --headless', 'whether to run browser in headless mode. defaults to true unless the devtools option is true', config.headless)
     .option('-b, --browser <path>', 'name of browser to use. defaults to ' + config.browser, config.browser)
     .option('-k, --browser-teardown <optional>', 'browser teardown strategy after every scenario (always, clear, none). defaults to "always"', config.browserTeardownStrategy)
     .option('-d, --disableLaunchReport [optional]', 'Disables the auto opening the browser with test report')
@@ -54,6 +56,9 @@ program.on('--help', function () {
 // store browserName globally (used within world.js to build driver)
 global.browserName = program.browser;
 global.browserTeardownStrategy = program.browserTeardown;
+
+// should the browser be headless?
+global.headless = program.headless;
 
 // used within world.js to import page objects
 global.pageObjectPath = path.resolve(config.pageObjects);

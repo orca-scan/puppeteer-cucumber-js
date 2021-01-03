@@ -43,6 +43,7 @@ cd puppeteer-cucumber-js && npm install && npm start
 -V, --version                       output the version number
 -b, --browser <path>                name of browser to use. defaults to chrome
 -k, --browser-teardown <optional>   browser teardown strategy after every scenario (always, clear, none). defaults to "always"
+-h, --headless                      run browser in headless mode. defaults to false
 -d, --disableLaunchReport           disable the auto opening the browser with test report
 -j, --junit <path>                  output path to save junit-report.xml defaults to ./reports
 -t, --tags <tagName>                name of tag to run
