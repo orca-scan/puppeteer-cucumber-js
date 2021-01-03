@@ -298,17 +298,17 @@ Your files must live in a `features` folder within the root of your project:
 ```bash
 .
 ├── features
-│   ├── page-objects
-│   │   └── google-search.js
-│   ├── reports
-│   │   ├── cucumber-report.html
-│   │   ├── cucumber-report.json
-│   │   └── junit-report.xml
-│   ├── shared-objects
-│   │   └── test-data.js
-│   └── step-definitions
-│   |   └── google-search-steps.js
-│   └── google-search.feature
+    ├── page-objects
+    │   └── google-search.js
+    ├── reports
+    │   ├── cucumber-report.html
+    │   ├── cucumber-report.json
+    │   └── junit-report.xml
+    ├── shared-objects
+    │   └── test-data.js
+    └── step-definitions
+    │   └── google-search-steps.js
+    └── google-search.feature
 ```
 
 ### How to debug
