@@ -36,12 +36,8 @@ var config = {
 program
     .version(pjson.version)
     .description(pjson.description)
-    .option('-s, --steps <path>', 'path to step definitions. defaults to ' + config.steps, config.steps)
-    .option('-p, --pageObjects <path>', 'path to page objects. defaults to ' + config.pageObjects, config.pageObjects)
-    .option('-o, --sharedObjects [paths]', 'path to shared objects (repeatable). defaults to ' + config.sharedObjects, collectPaths, [config.sharedObjects])
     .option('-b, --browser <path>', 'name of browser to use. defaults to ' + config.browser, config.browser)
     .option('-k, --browser-teardown <optional>', 'browser teardown strategy after every scenario (always, clear, none). defaults to "always"', config.browserTeardownStrategy)
-    .option('-r, --reports <path>', 'output path to save reports. defaults to ' + config.reports, config.reports)
     .option('-d, --disableLaunchReport [optional]', 'Disables the auto opening the browser with test report')
     .option('-j, --junit <path>', 'output path to save junit-report.xml defaults to ' + config.reports)
     .option('-t, --tags <tagName>', 'name of tag to run', collectPaths, [])
@@ -60,12 +56,12 @@ global.browserName = program.browser;
 global.browserTeardownStrategy = program.browserTeardown;
 
 // used within world.js to import page objects
-global.pageObjectPath = path.resolve(program.pageObjects);
+global.pageObjectPath = path.resolve(config.pageObjects);
 
 // used within world.js to output reports
-global.reportsPath = path.resolve(program.reports);
-if (!fs.existsSync(program.reports)) {
-    fs.makeTreeSync(program.reports);
+global.reportsPath = path.resolve(config.reports);
+if (!fs.existsSync(config.reports)) {
+    fs.makeTreeSync(config.reports);
 }
 
 // used within world.js to decide if reports should be generated
@@ -75,15 +71,13 @@ global.disableLaunchReport = (program.disableLaunchReport);
 global.noScreenshot = (program.noScreenshot);
 
 // used within world.js to output junit reports
-global.junitPath = path.resolve(program.junit || program.reports);
+global.junitPath = path.resolve(config.junit || config.reports);
 
 // set the default timeout to 10 seconds if not already globally defined or passed via the command line
 global.DEFAULT_TIMEOUT = global.DEFAULT_TIMEOUT || program.timeOut || 10 * 1000;
 
 // used within world.js to import shared objects into the shared namespace
-global.sharedObjectPaths = program.sharedObjects.map(function (item) {
-    return path.resolve(item);
-});
+global.sharedObjectPaths = path.resolve(config.sharedObjects);
 
 // rewrite command line switches for cucumber
 process.argv.splice(2, 100);
@@ -109,7 +103,7 @@ process.argv.push(path.resolve(__dirname, 'runtime/world.js'));
 
 // add path to import step definitions
 process.argv.push('-r');
-process.argv.push(path.resolve(program.steps));
+process.argv.push(path.resolve(config.steps));
 
 // add tag
 if (program.tags) {
