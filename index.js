@@ -15,7 +15,7 @@ function collectPaths(value, paths) {
 
 function coerceInt(value, defaultValue) {
 
-    var int = parseInt(value);
+    var int = parseInt(value, 10);
 
     if (typeof int === 'number') return int;
 
