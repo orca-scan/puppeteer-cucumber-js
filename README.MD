@@ -69,7 +69,7 @@ Your files must live in a `features` folder within the root of your project:
     │   └── google-search.js
     ├── shared-objects
     │   └── test-data.js
-    └── reports
+    └── reports                         # automatically created when tests run
         ├── cucumber-report.html
         ├── cucumber-report.json
         └── junit-report.xml
