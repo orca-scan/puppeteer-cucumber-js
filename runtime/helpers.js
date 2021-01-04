@@ -104,6 +104,9 @@ module.exports = {
         var frame = (elementHandle) ? await elementHandle.contentFrame() : null;
 
         if (frame) {
+            // as this is an iframe, wait for it to load by waiting for the selector to appear
+            await frame.waitForSelector(childSelector);
+
             return frame.$(childSelector);
         }
 
