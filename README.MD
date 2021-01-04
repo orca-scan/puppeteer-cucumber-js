@@ -99,7 +99,7 @@ Feature: Searching for a barcode scanner app
 
 ### Step definitions
 
-Step definitions act as the glue between features files and the actual system under test. To avoid confusion **always** return a JavaScript promise from your step definition to let cucumber know when your task has completed.
+Step definitions act as the glue between features files and the actual system under test. To avoid confusion **always** return a JavaScript promise from step definitions to let cucumber know when your task has completed.
 
 ```javascript
 // ./step-definitions/google-search-steps.js
