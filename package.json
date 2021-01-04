@@ -7,6 +7,10 @@
     "test": "node index.js",
     "start": "node index.js"
   },
+  "engines": {
+    "node": ">=11.15.0"
+  },
+  "engineStrict": true,
   "author": "https://orcascan.com",
   "license": "ISC",
   "keywords": [
@@ -23,10 +27,6 @@
   "bugs": {
     "url": "https://github.com/orca-scan/puppeteer-cucumber-js/issues"
   },
-  "engines": {
-    "node": ">=10.0.0"
-  },
-  "engineStrict": true,
   "homepage": "https://github.com/orca-scan/puppeteer-cucumber-js#readme",
   "dependencies": {
     "chai": "3.5.0",
@@ -38,7 +38,7 @@
     "edge-paths": "^2.1.0",
     "fs-plus": "2.9.1",
     "merge": "^1.2.1",
-    "puppeteer": "^2.1.1",
+    "puppeteer": "^5.5.0",
     "require-dir": "0.3.2"
   },
   "devDependencies": {
