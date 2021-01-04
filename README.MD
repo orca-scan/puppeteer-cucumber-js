@@ -338,7 +338,7 @@ Value      |  Description
 
 ## Demo
 
-To demo the framework without installing in your project run the example using the following command:
+To demo the framework without installing in your project use the following commands:
 
 ```bash
 # download this example code
