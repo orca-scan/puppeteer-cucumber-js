@@ -1,5 +1,6 @@
 # puppeteer-cucumber-js
 
+[![Build](https://github.com/orca-scan/puppeteer-cucumber-js/workflows/Build/badge.svg)](https://github.com/orca-scan/puppeteer-cucumber-js/actions?query=workflow%3ABuild)
 [![Node Version](https://img.shields.io/badge/Node%20Version-11+-blue)](https://nodejs.org/en/)
 [![License: MIT](https://img.shields.io/badge/License-ISC-yellow.svg)](https://opensource.org/licenses/ISC)
 
