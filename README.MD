@@ -48,10 +48,10 @@ node ./node_modules/puppeteer-cucumber-js/index.js
 --browser-teardown <optional>   # browser cleanup after each scenario (always, clear, none). default always
 --headless                      # run browser in headless mode. defaults to false
 --devTools                      # auto-open a DevTools. if true headless mode is disabled. default false
---noScreenshot                  # disable auto capturing of screenshots when an error is encountered
+--noScreenshot                  # disable auto capturing of screenshots with errors
 --disableLaunchReport           # disable auto opening the browser with test report
 --junit <path>                  # output path to save junit-report.xml. defaults to ./reports
---timeOut <n>                   # steps definition timeout in milliseconds. defaults to 10 seconds
+--timeOut <n>                   # steps definition timeout in milliseconds. defaults 10 seconds
 --worldParameters <JSON>        # JSON object to pass to cucumber-js world constructor
 --version                       # outputs puppeteer-cucumber-js version number
 --help                          # list puppeteer-cucumber-js options
