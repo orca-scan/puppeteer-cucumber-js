@@ -258,6 +258,9 @@ helpers.clearSessionStorage();
 
 // Clears cookies and storage
 helpers.clearCookiesAndStorages();
+
+// Stop the browser in debug mode (must have DevTools open)
+helpers.debug()
 ```
 
 ### Before/After hooks
@@ -308,11 +311,15 @@ HTML and JSON reports are automatically generated and stored in the default `./r
 
 ### How to debug
 
+To stop the browser at a particular point use the `--devTools` command line switch and `helpers.debug()` within your code:
+
 ```js
 module.exports = function () {
 
-    this.When(/^I search Google for "([^"]*)"$/, function (searchQuery, done) {
-        // TODO: write a debug example
+    this.When(/^I search Google for "([^"]*)"$/, async function (searchQuery, done) {
+
+        // Stop the browser in debug mode
+        helpers.debug();
     });
 };
 ```

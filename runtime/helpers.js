@@ -189,5 +189,19 @@ module.exports = {
         await helpers.clearCookies();
         await helpers.clearLocalStorage();
         await helpers.clearSessionStorage();
+    },
+
+    /**
+     * Stop the browser in debug mode
+     * @returns {Promise} resolves once done
+     * @example
+     *      await helpers.debug();
+     */
+    debug: function() {
+
+        if (devTools === true) {
+            return page.evaluate('debugger');
+        }
+        return Promise.reject(new Error('DevTools must be enabled to use helpers.debug(). Enable DevTools using the -devTools switch'));
     }
 };
