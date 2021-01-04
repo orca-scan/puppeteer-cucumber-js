@@ -14,7 +14,9 @@ var assert = require('chai').assert;
 var reporter = require('cucumber-html-reporter');
 var cucumberJunit = require('cucumber-junit');
 var helpers = require('../runtime/helpers.js');
+var edgePaths = require('edge-paths');
 
+var edgePath = edgePaths.getEdgePath();
 var browserWidth = 1024;
 var browserHeight = 768;
 
@@ -129,7 +131,7 @@ module.exports = async function () {
     this.registerHandler('BeforeScenario', async function () {
 
         if (!global.browser) {
-            global.browser = await puppeteer.launch({
+            var browserOptions = {
                 headless: headless === true,
                 product: browserName || 'chrome',
                 defaultViewport: null,
@@ -138,7 +140,14 @@ module.exports = async function () {
                 args: [
                     `--window-size=${browserWidth},${browserHeight}`
                 ]
-            });
+            };
+
+            if (browserName === 'edge') {
+                delete browserOptions.product;
+                browserOptions.executablePath = edgePath;
+            }
+
+            global.browser = await puppeteer.launch(browserOptions);
         }
 
         if (!global.page) { 

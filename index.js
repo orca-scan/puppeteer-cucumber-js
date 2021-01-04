@@ -40,7 +40,7 @@ program
     .description(pjson.description)
     .option('--tags <tagName>', 'name of the cucumber tag to run', collectPaths, [])
     .option('--featureFiles <paths>', 'comma-separated list of feature files to run or path to directory defaults to ' + config.featureFiles, config.featureFiles)
-    .option('--browser <path>', 'name of browser to use (chrome, firefox). defaults to ' + config.browser, config.browser)
+    .option('--browser <path>', 'name of browser to use (chrome, firefox, edge). defaults to ' + config.browser, config.browser)
     .option('--browser-teardown <optional>', 'browser teardown after each scenario (always, clear, none). defaults to ' + config.browserTeardownStrategy, config.browserTeardownStrategy)
     .option('--headless', 'whether to run browser in headless mode. defaults to true unless the devtools option is true', config.headless)
     .option('--devTools', 'auto-open a DevTools. if true headless mode is disabled.', config.devTools)
