@@ -8,20 +8,6 @@ var program = require('commander');
 var pjson = require('./package.json');
 var cucumber = require('cucumber');
 
-function collectPaths(value, paths) {
-    paths.push(value);
-    return paths;
-}
-
-function coerceInt(value, defaultValue) {
-
-    var int = parseInt(value, 10);
-
-    if (typeof int === 'number') return int;
-
-    return defaultValue;
-}
-
 var config = {
     featureFiles: './features',
     steps: './features/step-definitions',
@@ -35,18 +21,28 @@ var config = {
     devTools: false
 };
 
+// global defaults (before cli commands)
+global.browserName = 'chrome';
+global.browserPath = '';
+global.browserTeardownStrategy = config.browserTeardownStrategy;
+global.headless = config.headless;
+global.devTools = config.devTools;
+global.userAgent = '';
+global.disableLaunchReport = false;
+global.noScreenshot = false;
+
 program
     .version(pjson.version)
     .description(pjson.description)
-    .option('--tags <@tagname>', 'name of the cucumber tag to run', collectPaths, [])
+    .option('--tags <@tagname>', 'cucumber @tag name to run', collectPaths, [])
     .option('--featureFiles <paths>', 'comma-separated list of feature files to run or path to directory defaults to ' + config.featureFiles, config.featureFiles)
-    .option('--browser <name>', 'name of browser to use (chrome, firefox, edge). default ' + config.browser, config.browser)
+    .option('--browser <name>', 'name of browser to use (chrome, firefox, edge, brave). default ' + config.browser, config.browser)
+    .option('--browserPath <path>', 'optional path to a browser executable')
     .option('--browser-teardown <optional>', 'browser teardown after each scenario (always, clear, none). defaults ' + config.browserTeardownStrategy, config.browserTeardownStrategy)
     .option('--headless', 'whether to run browser in headless mode. defaults to true unless the devtools option is true', config.headless)
     .option('--devTools', 'auto-open a DevTools. if true headless mode is disabled.', config.devTools)
     .option('--noScreenshot', 'disable auto capturing of screenshots when an error is encountered')
     .option('--disableLaunchReport', 'Disables the auto opening the browser with test report')
-    .option('--junit <path>', 'output path to save junit-report.xml defaults to ' + config.reports)
     .option('--timeOut <number>', 'steps definition timeout in milliseconds. defaults to ' + config.timeout, coerceInt, config.timeout)
     .option('--worldParameters <JSON>', 'JSON object to pass to cucumber-js world constructor. defaults to empty', config.worldParameters)
     .option('--userAgent <string>', 'user agent string')
@@ -56,9 +52,33 @@ program.on('--help', function () {
     console.log('  For more details please visit https://github.com/orca-scan/puppeteer-cucumber-js#readme\n');
 });
 
-// store browserName globally (used within world.js to build driver)
-global.browserName = program.browser;
-global.browserTeardownStrategy = program.browserTeardown;
+// name of the browser to use for the test
+global.browserName = program.browser || global.browserName;
+
+// if user specified a browser path, check it exists first
+if (program.browserPath) {
+    if (fs.existsSync(program.browserPath)) {
+        global.browserPath = program.browserPath;
+    }
+    else {
+        throw new Error('browserPath not found');
+    }
+}
+
+// if user specified brave, attempt to find the path
+if (program.browser === 'brave' && global.browserPath === '') {
+    var bravePath = findBrave();
+    if (bravePath) {
+        global.browserPath = bravePath;
+        global.browserName = '';
+    }
+    else {
+        throw new Error('Brave Browser not found, check your installation or provide the path using --browserPath');
+    }
+}
+
+// how should the browser clean up
+global.browserTeardownStrategy = program.browserTeardown || global.browserTeardownStrategy;
 
 // should the browser be headless?
 global.headless = program.headless;
@@ -83,9 +103,6 @@ global.disableLaunchReport = (program.disableLaunchReport);
 
 // used with world.js to determine if a screenshot should be captured on error
 global.noScreenshot = (program.noScreenshot);
-
-// used within world.js to output junit reports
-global.junitPath = path.resolve(config.junit || config.reports);
 
 // set the default timeout to 10 seconds if not already globally defined or passed via the command line
 global.DEFAULT_TIMEOUT = global.DEFAULT_TIMEOUT || program.timeOut || 10 * 1000;
@@ -158,3 +175,29 @@ cucumberCli.run(function (succeeded) {
         process.stdout.on('drain', exitNow);
     }
 });
+
+function findBrave() {
+
+    var locations = [
+        '/Applications/Brave Browser.app/Contents/MacOS/Brave Browser',
+        'C:\\Program Files (x86)\\BraveSoftware\\Brave-Browser\\Application\\brave.exe'
+    ];
+
+    return locations.find(function(item) {
+        return fs.existsSync(item);
+    });
+}
+
+function collectPaths(value, paths) {
+    paths.push(value);
+    return paths;
+}
+
+function coerceInt(value, defaultValue) {
+
+    var int = parseInt(value, 10);
+
+    if (typeof int === 'number') return int;
+
+    return defaultValue;
+}

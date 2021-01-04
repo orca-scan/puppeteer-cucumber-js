@@ -144,7 +144,11 @@ module.exports = async function () {
                 ]
             };
 
-            if (browserName === 'edge') {
+            if (browserPath !== '') {
+                delete browserOptions.product;
+                browserOptions.executablePath = browserPath;
+            }
+            else if (browserName === 'edge') {
                 delete browserOptions.product;
                 browserOptions.executablePath = edgePath;
             }
@@ -188,7 +192,7 @@ module.exports = async function () {
             // grab the file data
             var reportRaw = fs.readFileSync(cucumberReportPath).toString().trim();
             var xmlReport = cucumberJunit(reportRaw);
-            var junitOutputPath = path.resolve(global.junitPath, 'junit-report.xml');
+            var junitOutputPath = path.resolve(global.reportsPath, 'junit-report.xml');
 
             fs.writeFileSync(junitOutputPath, xmlReport);
         }

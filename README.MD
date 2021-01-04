@@ -7,7 +7,7 @@
 
 Modern-day Browser Automation framework using [puppeteer](https://github.com/puppeteer/puppeteer "view puppeteer documentation") and [cucumber-js](https://github.com/cucumber/cucumber-js "view cucumber js documentation").
 
-Works with [Chrome](https://www.google.com/intl/en_uk/chrome/), [Firefox](https://www.mozilla.org/en-GB/firefox/new/) and [Microsoft Edge](https://www.microsoft.com/en-us/edge).
+Works with [Chrome](https://www.google.com/intl/en_uk/chrome/), [Firefox](https://www.mozilla.org/en-GB/firefox/new/), [Microsoft Edge](https://www.microsoft.com/en-us/edge) and [Brave](https://brave.com/download/).
 
 **Table of Contents**
 
@@ -44,15 +44,15 @@ node ./node_modules/puppeteer-cucumber-js/index.js
 ### Options
 
 ```bash
---tags <@tagname>               # name of the cucumber tag to run
+--tags <@tagname>               # cucumber @tag name to run
 --featureFile <path>            # a specific feature file to run
 --browser <name>                # browser to use (chrome, firefox, edge). default chrome
+--browserPath <path>            # optional path to a browser executable
 --browser-teardown <optional>   # browser cleanup after each scenario (always, clear, none). default always
 --headless                      # run browser in headless mode. defaults to false
 --devTools                      # open dev tools with each page. default false
 --noScreenshot                  # disable auto capturing of screenshots with errors
 --disableLaunchReport           # disable auto opening the browser with test report
---junit <path>                  # output path to save junit-report.xml. defaults to ./reports
 --timeOut <n>                   # steps definition timeout in milliseconds. defaults 10 seconds
 --worldParameters <JSON>        # JSON object to pass to cucumber-js world constructor
 --version                       # outputs puppeteer-cucumber-js version number

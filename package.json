@@ -54,6 +54,7 @@
       "browser": true
     },
     "globals": {
+      "browserPath": true,
       "userAgent": true,
       "devTools": true,
       "headless": true,
