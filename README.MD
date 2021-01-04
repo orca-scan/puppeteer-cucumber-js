@@ -315,7 +315,7 @@ HTML, JSON and JUnit reports are generated with each test run and stored in `./f
 
 ### How to debug
 
-To stop the browser at a particular point use the `--devTools` command line switch and `helpers.debug()` within your code:
+To step into debug mode in the browser, enable dev tools `--devTools` and use `helpers.debug()` within your steps:
 
 ```js
 module.exports = function () {
