@@ -44,8 +44,8 @@ node ./node_modules/puppeteer-cucumber-js/index.js
 ```bash
 --tags <tagName>                # name of the cucumber tag to run
 --featureFile <path>            # a specific feature file to run
---browser <path>                # browser to use (chrome, firefox, edge). defaults to chrome
---browser-teardown <optional>   # browser teardown after each scenario (always, clear, none). default "always"
+--browser <path>                # browser to use (chrome, firefox, edge). defaults chrome
+--browser-teardown <optional>   # browser cleanup after each scenario (always, clear, none). default always
 --headless                      # run browser in headless mode. defaults to false
 --devTools                      # auto-open a DevTools. if true headless mode is disabled. default false
 --noScreenshot                  # disable auto capturing of screenshots when an error is encountered
