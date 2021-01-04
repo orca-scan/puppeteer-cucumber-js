@@ -1,5 +1,6 @@
 # puppeteer-cucumber-js
 
+[![Node Version](https://img.shields.io/badge/Node Version-11+-blue)](https://nodejs.org/en/)
 [![Puppeteer API](https://img.shields.io/badge/Puppeteer-API-40b5a4)](https://pptr.dev/)
 [![License: MIT](https://img.shields.io/badge/License-ISC-yellow.svg)](https://opensource.org/licenses/ISC)
 
