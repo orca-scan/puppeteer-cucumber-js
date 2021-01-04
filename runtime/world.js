@@ -16,7 +16,9 @@ var cucumberJunit = require('cucumber-junit');
 var helpers = require('../runtime/helpers.js');
 var edgePaths = require('edge-paths');
 
-var edgePath = edgePaths.getEdgePath();
+var platform = process.platform;
+var edgePath = (platform === 'darwin' || platform === 'win32') ? edgePaths.getEdgePath() : '';
+
 var browserWidth = 1024;
 var browserHeight = 768;
 
