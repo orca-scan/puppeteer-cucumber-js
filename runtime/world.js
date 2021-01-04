@@ -150,13 +150,18 @@ module.exports = async function () {
             global.browser = await puppeteer.launch(browserOptions);
         }
 
-        if (!global.page) { 
+        if (!global.page) {
 
             // chrome opens with exist tab
             var pages = await browser.pages();
 
             // using first tab
             global.page = pages[0];
+
+            // set user agent if present
+            if (userAgent !== '') {
+                await page.setUserAgent(userAgent);
+            }
         }
     });
 

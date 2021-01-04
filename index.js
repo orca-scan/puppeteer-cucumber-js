@@ -38,17 +38,18 @@ var config = {
 program
     .version(pjson.version)
     .description(pjson.description)
-    .option('--tags <tagName>', 'name of the cucumber tag to run', collectPaths, [])
+    .option('--tags <@tagname>', 'name of the cucumber tag to run', collectPaths, [])
     .option('--featureFiles <paths>', 'comma-separated list of feature files to run or path to directory defaults to ' + config.featureFiles, config.featureFiles)
-    .option('--browser <path>', 'name of browser to use (chrome, firefox, edge). defaults to ' + config.browser, config.browser)
-    .option('--browser-teardown <optional>', 'browser teardown after each scenario (always, clear, none). defaults to ' + config.browserTeardownStrategy, config.browserTeardownStrategy)
+    .option('--browser <name>', 'name of browser to use (chrome, firefox, edge). default ' + config.browser, config.browser)
+    .option('--browser-teardown <optional>', 'browser teardown after each scenario (always, clear, none). defaults ' + config.browserTeardownStrategy, config.browserTeardownStrategy)
     .option('--headless', 'whether to run browser in headless mode. defaults to true unless the devtools option is true', config.headless)
     .option('--devTools', 'auto-open a DevTools. if true headless mode is disabled.', config.devTools)
-    .option('--noScreenshot [optional]', 'disable auto capturing of screenshots when an error is encountered')
-    .option('--disableLaunchReport [optional]', 'Disables the auto opening the browser with test report')
+    .option('--noScreenshot', 'disable auto capturing of screenshots when an error is encountered')
+    .option('--disableLaunchReport', 'Disables the auto opening the browser with test report')
     .option('--junit <path>', 'output path to save junit-report.xml defaults to ' + config.reports)
-    .option('--timeOut <n>', 'steps definition timeout in milliseconds. defaults to ' + config.timeout, coerceInt, config.timeout)
+    .option('--timeOut <number>', 'steps definition timeout in milliseconds. defaults to ' + config.timeout, coerceInt, config.timeout)
     .option('--worldParameters <JSON>', 'JSON object to pass to cucumber-js world constructor. defaults to empty', config.worldParameters)
+    .option('--userAgent <string>', 'user agent string')
     .parse(process.argv);
 
 program.on('--help', function () {
@@ -64,6 +65,9 @@ global.headless = program.headless;
 
 // pass dev tools option
 global.devTools = program.devTools;
+
+// pass user agent if set (remove wrapped quotes)
+global.userAgent = String(program.userAgent || '').replace(/(^"|"$)/g, '');
 
 // used within world.js to import page objects
 global.pageObjectPath = path.resolve(config.pageObjects);
