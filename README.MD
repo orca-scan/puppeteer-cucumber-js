@@ -47,7 +47,7 @@ node ./node_modules/puppeteer-cucumber-js/index.js
 --browser <path>                # browser to use (chrome, firefox, edge). defaults chrome
 --browser-teardown <optional>   # browser cleanup after each scenario (always, clear, none). default always
 --headless                      # run browser in headless mode. defaults to false
---devTools                      # auto-open a DevTools. if true headless mode is disabled. default false
+--devTools                      # open dev tools with each page. default false
 --noScreenshot                  # disable auto capturing of screenshots with errors
 --disableLaunchReport           # disable auto opening the browser with test report
 --junit <path>                  # output path to save junit-report.xml. defaults to ./reports
