@@ -309,7 +309,7 @@ module.exports = function () {
 
 ### Reports
 
-HTML and JSON reports are automatically generated and stored in the default `./reports` folder. This location can be changed by providing a new path using the `-r` command line switch:
+HTML, JSON and JUnit reports are automatically generated and stored in the default `./features/reports` folder, example:
 
 ![Cucumber HTML report](img/cucumber-html-report.png)
 
