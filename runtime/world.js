@@ -204,7 +204,7 @@ module.exports = async function () {
             var screenshot = await page.screenshot({ encoding: 'base64', fullPage: true });
 
             // add a screenshot to the error report
-            scenario.attach(new Buffer(screenshot, 'base64'), 'image/png');
+            scenario.attach(Buffer.from(screenshot, 'base64'), 'image/png');
         }
 
         return teardownBrowser();
