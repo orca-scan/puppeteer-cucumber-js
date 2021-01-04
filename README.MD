@@ -5,7 +5,7 @@
 
 Modern-day Browser Automation framework using [puppeteer](https://github.com/puppeteer/puppeteer "view puppeteer documentation") and [cucumber-js](https://github.com/cucumber/cucumber-js "view cucumber js documentation").
 
-Works with Chrome, Firefox and Microsoft Edge.
+Works with [Chrome](https://www.google.com/intl/en_uk/chrome/), [Firefox](https://www.mozilla.org/en-GB/firefox/new/) and [Microsoft Edge](https://www.microsoft.com/en-us/edge).
 
 **Table of Contents**
 
