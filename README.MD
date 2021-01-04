@@ -3,6 +3,7 @@
 [![Build](https://github.com/orca-scan/puppeteer-cucumber-js/workflows/Build/badge.svg)](https://github.com/orca-scan/puppeteer-cucumber-js/actions?query=workflow%3ABuild)
 [![Node Version](https://img.shields.io/badge/Node%20Version-11+-blue)](https://nodejs.org/en/)
 [![License: MIT](https://img.shields.io/badge/License-ISC-yellow.svg)](https://opensource.org/licenses/ISC)
+[![Puppeteer API](https://img.shields.io/badge/Puppeteer-API-40b5a4)](https://pptr.dev/)
 
 Modern-day Browser Automation framework using [puppeteer](https://github.com/puppeteer/puppeteer "view puppeteer documentation") and [cucumber-js](https://github.com/cucumber/cucumber-js "view cucumber js documentation").
 
