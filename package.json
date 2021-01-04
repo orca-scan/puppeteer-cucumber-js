@@ -5,6 +5,7 @@
   "main": "index.js",
   "scripts": {
     "test": "node index.js",
+    "postinstall": "PUPPETEER_PRODUCT=firefox node ./node_modules/puppeteer/install.js",
     "start": "node index.js"
   },
   "engines": {
