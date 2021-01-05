@@ -185,7 +185,7 @@ module.exports = {
 
 ### What are Shared objects?
 
-[Shared objects](/features/shared-objects/test-data.js) allow you to share anything from test data to helper methods throughout your project via a global ```shared``` object. Shared objects are automatically loaded from ```./features/shared-objects/``` and made available via a camel-cased version of their filename, for example ```./features/shared-objects/test-data.js``` becomes ```sharedObjects.testData```. You can also use subdirectories, for example ```./features/shared-objects/dir/test-data.js``` becomes ```sharedObjects.dir.testData```.
+[Shared objects](/features/shared-objects/test-data.js) allow you to share anything from test data to helper methods throughout your project via a global ```sharedObjects``` object. Shared objects are automatically loaded from ```./features/shared-objects/``` and made available via a camel-cased version of their filename, for example ```./features/shared-objects/test-data.js``` becomes ```sharedObjects.testData```. You can also use subdirectories, for example ```./features/shared-objects/dir/test-data.js``` becomes ```sharedObjects.dir.testData```.
 
 Shared objects also have access to the same runtime variables available to step definitions.
 
