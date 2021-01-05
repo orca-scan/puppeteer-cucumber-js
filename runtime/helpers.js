@@ -101,13 +101,16 @@ module.exports = {
     getElementWithinFrame: async function(frameSelector, childSelector) {
 
         var elementHandle = await page.$(frameSelector);
-        var frame = (elementHandle) ? await elementHandle.contentFrame() : null;
 
-        if (frame) {
-            // as this is an iframe, wait for it to load by waiting for the selector to appear
-            await frame.waitForSelector(childSelector);
+        if (elementHandle) {
+            var frame = await elementHandle.contentFrame();
 
-            return frame.$(childSelector);
+            if (frame) {
+                // as this is an iframe, wait for it to load by waiting for the selector to appear
+                await frame.waitForSelector(childSelector);
+
+                return frame.$(childSelector);
+            }
         }
 
         return Promise.reject('frame not found');
