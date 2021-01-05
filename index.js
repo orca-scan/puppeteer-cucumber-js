@@ -156,7 +156,7 @@ process.argv.push('-S');
 //
 // execute cucumber
 //
-var cucumberCli = cucumber.Cli(process.argv);
+var cucumberCli = new cucumber.Cli(process.argv);
 
 global.cucumber = cucumber;
 
