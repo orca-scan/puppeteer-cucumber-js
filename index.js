@@ -150,6 +150,9 @@ if (program.worldParameters) {
 // add strict option (fail if there are any undefined or pending steps)
 process.argv.push('-S');
 
+// // abort the run on first failure
+// process.argv.push('--fail-fast');
+
 //
 // execute cucumber
 //
