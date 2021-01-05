@@ -40,14 +40,14 @@ function trace() {
 function createWorld() {
 
     var runtime = {
-        puppeteer: puppeteer,                   // the raw puppeteer object
-        browser: null,                          // puppeteer browser object
-        page: null,                             // puppeteer page object
-        expect: expect,                         // expose chai expect to allow variable testing
-        assert: assert,                         // expose chai assert to allow variable testing
-        trace: trace,                           // expose an info method to log output to the console in a readable/visible format
-        pageObjects: global.pageObjects || {},  // empty page objects placeholder
-        shared: global.shared || {}             // empty shared objects placeholder
+        puppeteer: puppeteer,                       // the raw puppeteer object
+        browser: null,                              // puppeteer browser object
+        page: null,                                 // puppeteer page object
+        expect: expect,                             // expose chai expect to allow variable testing
+        assert: assert,                             // expose chai assert to allow variable testing
+        trace: trace,                               // expose an info method to log output to the console in a readable/visible format
+        pageObjects: global.pageObjects || {},      // empty page objects placeholder
+        sharedObjects: global.sharedObjects || {}   // empty shared objects placeholder
     };
 
     // expose properties to step definition methods via global variables
@@ -87,7 +87,7 @@ function importSupportObjects() {
         if (Object.keys(allDirs).length > 0) {
 
             // expose globally
-            global.shared = allDirs;
+            global.sharedObjects = allDirs;
         }
     }
 

@@ -15,11 +15,11 @@ Works with [Chrome](https://www.google.com/intl/en_uk/chrome/), [Firefox](https:
 * [Usage](#usage)
   * [Options](#options)
   * [Directory structure](#directory-structure)
-  * [Feature files](#feature-files)
-  * [Step definitions](#step-definitions)
-  * [Page objects](#page-objects)
-  * [Shared objects](#shared-objects)
-  * [Helpers](#helpers)
+  * [Feature files](#what-are-feature-files)
+  * [Step definitions](#what-are-step-definitions)
+  * [Page objects](#what-are-page-objects)
+  * [Shared objects](#what-are-shared-objects)
+  * [Helpers](#what-are-helpers)
   * [Before/After hooks](#beforeafter-hooks)
   * [Reports](#reports)
   * [How to debug](#how-to-debug)
@@ -79,13 +79,11 @@ Your files must live in a `features` folder within the root of your project:
         └── junit-report.xml
 ```
 
-### Feature files
+### What are Feature files?
 
-A feature file is a [Business Readable, Domain Specific Language](http://martinfowler.com/bliki/BusinessReadableDSL.html) file that lets you describe software behavior without detailing how that behavior is implemented. Feature files are written using the [Gherkin syntax](https://github.com/cucumber/cucumber/wiki/Gherkin).
+A [Feature file](/features/google-search.feature) is a Business Readable file that lets you describe software behavior without detailing how that behavior is implemented. Feature files are written using the [Gherkin syntax](https://github.com/cucumber/cucumber/wiki/Gherkin).
 
 ```gherkin
-# ./features/google-search.feature
-
 Feature: Searching for a barcode scanner app
   
   Scenario: Google search for barcode scanner app
@@ -99,13 +97,11 @@ Feature: Searching for a barcode scanner app
     Then I should see "Orca Scan" in the results
 ```
 
-### Step definitions
+### What are Step definitions?
 
-Step definitions act as the glue between features files and the actual system under test. To avoid confusion **always** return a JavaScript promise from step definitions to let cucumber know when your task has completed.
+[Step definitions](features/step-definitions/google-search-steps.js) act as the glue between features files and the actual system under test. To avoid confusion **always** return a JavaScript promise from step definitions to let cucumber know when your task has completed.
 
 ```javascript
-// ./step-definitions/google-search-steps.js
-
 this.Given(/^I am online at google.co.uk/, function() {
 
     // use the ./page-objects/google-search.js url property
@@ -139,17 +135,18 @@ Variable      | Description
 `assert`      | instance of [chai assert](http://chaijs.com/api/assert/) to ```assert.isOk('everything', 'everything is ok')```
 `expect`      | instance of [chai expect](http://chaijs.com/api/bdd/) to ```expect('something').to.equal('something')```
 
-### Page objects
+### What are Page objects?
 
-Page objects are accessible via a global ```pageObject``` variable and are automatically loaded from ```./features/page-objects``` folder. Page objects are exposed via a camel-cased version of their filename, for example ```./page-objects/google-search.js``` becomes ```pageObjects.googleSearch```. You can also use subdirectories, for example ```./page-objects/dir/google-search.js``` becomes ```pageObjects.dir.googleSearch```.
+[Page objects](/features/page-objects/google-search.js) allow you to define information about a specific page in one place such as selector, methods etc.
+These objects are accessible from within your step definition files and help to reduce code duplication. Should your page change, you can fix your tests by modifying the selectors in one location.
+
+You can access page object properties and methods via a global ```pageObject``` variable. Page objects are loaded from ```./features/page-objects``` folder and are exposed as a camel-cased version of their filename, for example ```./page-objects/google-search.js``` becomes ```pageObjects.googleSearch```. You can also use subdirectories, for example ```./page-objects/dir/google-search.js``` becomes ```pageObjects.dir.googleSearch```.
 
 Page objects also have access to the same runtime variables available to step definitions.
 
 An example page object:
 
 ```javascript
-// ./page-objects/google-search.js
-
 module.exports = {
 
     url: 'http://www.google.co.uk',
@@ -186,17 +183,15 @@ module.exports = {
 };
 ```
 
-### Shared objects
+### What are Shared objects?
 
-Shared objects allow you to share anything from test data to helper methods throughout your project via a global ```shared``` object. Shared objects are automatically loaded from ```./shared-objects``` _(or the path specified using the ```-o``` switch)_ and made available via a camel-cased version of their filename, for example ```./shared-objects/test-data.js``` becomes ```shared.testData```. You can also use subdirectories, for example ```./shared-objects/dir/test-data.js``` becomes ```shared.dir.testData```.
+Shared objects allow you to share anything from test data to helper methods throughout your project via a global ```shared``` object. Shared objects are automatically loaded from ```./features/shared-objects/``` and made available via a camel-cased version of their filename, for example ```./features/shared-objects/test-data.js``` becomes ```sharedObjects.testData```. You can also use subdirectories, for example ```./features/shared-objects/dir/test-data.js``` becomes ```sharedObjects.dir.testData```.
 
 Shared objects also have access to the same runtime variables available to step definitions.
 
 An example shared object:
 
 ```javascript
-// ./shared-objects/test-data.js
-
 module.exports = {
     username: "import-test-user",
     password: "import-test-pa**word"
@@ -214,13 +209,13 @@ module.exports = function () {
         await page.focus('#username');
 
         // type username
-        await page.keyboard.type(shared.testData.username);
+        await page.keyboard.type(sharedObjects.testData.username);
 
         // set focus to password
         await page.focus('#password');
 
         // type password
-        await page.keyboard.type(shared.testData.password);
+        await page.keyboard.type(sharedObjects.testData.password);
 
         // press enter (submit form)
         return page.keyboard.press('Enter');
@@ -228,9 +223,9 @@ module.exports = function () {
 };
 ```
 
-### Helpers
+### What are Helpers?
 
-The following helper methods make working with puppeteer a bit easier:
+[Helpers](/runtime/helpers.js) are globally defined helper methods that simplify working with puppeteer:
 
 ```js
 // Load a URL, returning only when all network activity has finished
@@ -309,7 +304,7 @@ module.exports = function () {
 
 ### Reports
 
-HTML, JSON and JUnit reports are generated with each test run and stored in `./features/reports`, example:
+HTML, JSON and JUnit reports are generated with each test run and stored in `./features/reports/`:
 
 ![Cucumber HTML report](img/cucumber-html-report.png)
 
