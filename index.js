@@ -35,7 +35,7 @@ program
     .version(pjson.version)
     .description(pjson.description)
     .option('--tags <@tagname>', 'cucumber @tag name to run', collectPaths, [])
-    .option('--featureFiles <paths>', 'comma-separated list of feature files to run or path to directory defaults to ' + config.featureFiles, config.featureFiles)
+    .option('--featureFiles <paths>', 'comma-separated list of feature files or path to directory. defaults to ' + config.featureFiles, config.featureFiles)
     .option('--browser <name>', 'name of browser to use (chrome, firefox, edge, brave). default ' + config.browser, config.browser)
     .option('--browserPath <path>', 'optional path to a browser executable')
     .option('--browser-teardown <optional>', 'browser teardown after each scenario (always, clear, none). defaults ' + config.browserTeardownStrategy, config.browserTeardownStrategy)

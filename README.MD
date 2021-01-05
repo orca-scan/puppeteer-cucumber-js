@@ -45,7 +45,7 @@ node ./node_modules/puppeteer-cucumber-js/index.js
 
 ```bash
 --tags <@tagname>               # cucumber @tag name to run
---featureFile <path>            # a specific feature file to run
+--featureFiles <path>           # comma-separated list of feature files or path to directory
 --browser <name>                # browser to use (chrome, firefox, edge, brave). default chrome
 --browserPath <path>            # optional path to a browser executable
 --browser-teardown <optional>   # browser cleanup after each scenario (always, clear, none). default always
