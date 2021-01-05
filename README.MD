@@ -59,6 +59,16 @@ node ./node_modules/puppeteer-cucumber-js/index.js
 --help                          # list puppeteer-cucumber-js options
 ```
 
+### Browser teardown strategy
+
+The browser automatically closes after each scenario to ensure the next scenario uses a fresh browser environment. You can change this behavior using the `--browser-teardown` switch, options are:
+
+Value      |  Description
+---------- | ---------------
+`always`   | the browser automatically closes (default)
+`clear`    | the browser automatically clears cookies, local and session storages
+`none`     | the browser does nothing
+
 ### Directory structure
 
 Your files must live in a `features` folder within the root of your project:
@@ -322,16 +332,6 @@ module.exports = function () {
     });
 };
 ```
-
-### Browser teardown strategy
-
-The browser automatically closes after each scenario to ensure the next scenario uses a fresh browser environment. You can change this behavior using the `--browser-teardown` switch, options are:
-
-Value      |  Description
----------- | ---------------
-`always`   | the browser automatically closes (default)
-`clear`    | the browser automatically clears cookies, local and session storages
-`none`     | the browser does nothing
 
 ## Demo
 
