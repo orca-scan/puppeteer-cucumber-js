@@ -314,7 +314,7 @@ module.exports = function () {
 
 ### Reports
 
-HTML, JSON and JUnit reports are generated with each test run and stored in `./features/reports/`:
+HTML, JSON and JUnit reports are auto generated with each test run and stored in `./features/reports/`:
 
 ![Cucumber HTML report](img/cucumber-html-report.png)
 
