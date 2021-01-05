@@ -1,6 +1,6 @@
 module.exports = function () {
 
-    this.Given(/^I am on the Orca Scan barcode app website/, function() {
+    this.Given(/^I am on the Orca Scan barcode tracking website/, function() {
         return helpers.loadPage(pageObjects.orcaScan.url);
     });
 
