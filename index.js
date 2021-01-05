@@ -1,7 +1,5 @@
 #!/usr/bin/env node
 
-'use strict';
-
 var fs = require('fs-plus');
 var path = require('path');
 var program = require('commander');
