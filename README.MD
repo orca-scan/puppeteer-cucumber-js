@@ -325,7 +325,7 @@ module.exports = function () {
 
 ### Browser teardown strategy
 
-The browser automatically closes after each scenario to ensure the next scenario uses a fresh browser environment. You can change this behavior with the "--browser-teardown" parameter, options are:
+The browser automatically closes after each scenario to ensure the next scenario uses a fresh browser environment. You can change this behavior using the `--browser-teardown` switch, options are:
 
 Value      |  Description
 ---------- | ---------------
