@@ -1,7 +1,7 @@
 {
   "name": "puppeteer-cucumber-js",
-  "version": "1.0.4",
-  "description": "JavaScript browser automation framework using official puppeteer and cucumber-js",
+  "version": "1.0.5",
+  "description": "Modern-day Browser Automation framework using puppeteer and cucumber-js",
   "main": "index.js",
   "scripts": {
     "_test": "node index.js --headless --tags @ci --userAgent \"Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/87.0.4280.88 Safari/537.36\"",
