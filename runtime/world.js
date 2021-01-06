@@ -205,12 +205,7 @@ module.exports = async function () {
             fs.writeFileSync(junitOutputPath, xmlReport);
         }
 
-        if (browserTeardownStrategy !== 'always') {
-            browser.quit().then(done);
-        }
-        else {
-            done();
-        }
+        teardownBrowser().then(done);
     });
 
     // executed after each scenario (always closes the browser to ensure fresh tests)
