@@ -5,7 +5,6 @@ Feature: Searching for a barcode scanner app
     When I search Google for "barcode scanner app"
     Then I should see "Orca Scan" in the results
 
-  @ci
   Scenario: Google search for Orca Scan
     Given I am online at google.co.uk
     When I search Google for "Orca Scan"
