@@ -1,12 +1,12 @@
 {
   "name": "puppeteer-cucumber-js",
-  "version": "1.0.1",
+  "version": "1.0.2",
   "description": "JavaScript browser automation framework using official puppeteer and cucumber-js",
   "main": "index.js",
   "scripts": {
     "_test": "node index.js --headless --tags @ci --userAgent \"Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/87.0.4280.88 Safari/537.36\"",
     "test": "node index.js --headless --featureFiles ./features/orca-scan-demo.feature",
-    "postinstall": "PUPPETEER_PRODUCT=firefox node ./node_modules/puppeteer/install.js",
+    "_postinstall": "PUPPETEER_PRODUCT=firefox node ./node_modules/puppeteer/install.js",
     "start": "node index.js"
   },
   "engines": {
