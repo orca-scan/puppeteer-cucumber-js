@@ -200,11 +200,6 @@ function folderCheck() {
         logErrorToConsole(config.pageObjects + ' folder not found');
         process.exit();
     }
-
-    if (!fs.existsSync(config.sharedObjects)) {
-        logErrorToConsole(config.sharedObjects + ' folder not found');
-        process.exit();
-    }
 }
 
 /**
