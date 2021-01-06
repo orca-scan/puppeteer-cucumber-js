@@ -32,7 +32,7 @@ Works with [Chrome](https://www.google.com/intl/en_uk/chrome/), [Firefox](https:
 ## Installation
 
 ```bash
-npm i @orca-scan/puppeteer-cucumber-js
+npm install puppeteer-cucumber-js
 ```
 
 ## Usage
