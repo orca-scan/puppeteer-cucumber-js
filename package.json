@@ -1,6 +1,6 @@
 {
   "name": "puppeteer-cucumber-js",
-  "version": "1.0.2",
+  "version": "1.0.3",
   "description": "JavaScript browser automation framework using official puppeteer and cucumber-js",
   "main": "index.js",
   "scripts": {

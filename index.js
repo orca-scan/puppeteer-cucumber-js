@@ -5,6 +5,7 @@ var path = require('path');
 var program = require('commander');
 var pjson = require('./package.json');
 var cucumber = require('cucumber');
+var chalk = require('chalk');
 
 var config = {
     featureFiles: './features',
@@ -18,6 +19,8 @@ var config = {
     headless: false,
     devTools: false
 };
+
+folderCheck();
 
 // global defaults (before cli commands)
 global.browserName = 'chrome';
@@ -176,6 +179,42 @@ cucumberCli.run(function (succeeded) {
         process.stdout.on('drain', exitNow);
     }
 });
+
+/**
+ * Check if required folders exist
+ * @return {void}
+ */
+function folderCheck() {
+
+    if (!fs.existsSync(config.featureFiles)) {
+        logErrorToConsole(config.featureFiles + ' folder not found');
+        process.exit();
+    }
+
+    if (!fs.existsSync(config.steps)) {
+        logErrorToConsole(config.steps + ' folder not found');
+        process.exit();
+    }
+
+    if (!fs.existsSync(config.pageObjects)) {
+        logErrorToConsole(config.pageObjects + ' folder not found');
+        process.exit();
+    }
+
+    if (!fs.existsSync(config.sharedObjects)) {
+        logErrorToConsole(config.sharedObjects + ' folder not found');
+        process.exit();
+    }
+}
+
+/**
+ * Writes an error message to the console in red
+ * @param {string} message - error message
+ * @returns {void}
+ */
+function logErrorToConsole(message) {
+    console.log(chalk.red('Error: ' + message || ''));
+}
 
 function findBrave() {
 
