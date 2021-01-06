@@ -1,6 +1,6 @@
 {
   "name": "@orca-scan/puppeteer-cucumber-js",
-  "version": "1.0.0",
+  "version": "1.0.1",
   "description": "JavaScript browser automation framework using official puppeteer and cucumber-js",
   "main": "index.js",
   "scripts": {
