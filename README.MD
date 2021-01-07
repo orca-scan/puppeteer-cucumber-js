@@ -5,7 +5,7 @@
 [![License: MIT](https://img.shields.io/badge/License-ISC-informational.svg)](https://opensource.org/licenses/ISC)
 [![Puppeteer API](https://img.shields.io/badge/Puppeteer-docs-40b5a4)](https://pptr.dev/)
 
-Modern-day Browser Automation framework using [puppeteer](https://github.com/puppeteer/puppeteer "view puppeteer documentation") and [cucumber-js](https://github.com/cucumber/cucumber-js "view cucumber js documentation").
+Browser Automation framework using [puppeteer](https://github.com/puppeteer/puppeteer "view puppeteer documentation") and [cucumber-js](https://github.com/cucumber/cucumber-js "view cucumber js documentation").
 
 Works with [Chrome](https://www.google.com/intl/en_uk/chrome/), [Firefox](https://www.mozilla.org/en-GB/firefox/new/), [Microsoft Edge](https://www.microsoft.com/en-us/edge) and [Brave](https://brave.com/download/).
 
