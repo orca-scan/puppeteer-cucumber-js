@@ -6,6 +6,9 @@ var program = require('commander');
 var pjson = require('./package.json');
 var cucumber = require('cucumber');
 var chalk = require('chalk');
+var helpers = require('./runtime/helpers.js');
+var merge = require('merge');
+var requireDir = require('require-dir');
 
 var config = {
     featureFiles: './features',
@@ -91,7 +94,14 @@ global.devTools = program.devTools;
 global.userAgent = String(program.userAgent || '').replace(/(^"|"$)/g, '');
 
 // used within world.js to import page objects
-global.pageObjectPath = path.resolve(config.pageObjects);
+var pageObjectPath = path.resolve(config.pageObjects);
+
+// load page objects (after global vars have been created)
+if (fs.existsSync(pageObjectPath)) {
+
+    // require all page objects using camel case as object names
+    global.pageObjects = requireDir(pageObjectPath, { camelcase: true, recurse: true });
+}
 
 // used within world.js to output reports
 global.reportsPath = path.resolve(config.reports);
@@ -109,7 +119,26 @@ global.noScreenshot = (program.noScreenshot);
 global.DEFAULT_TIMEOUT = global.DEFAULT_TIMEOUT || program.timeOut || 10 * 1000;
 
 // used within world.js to import shared objects into the shared namespace
-global.sharedObjectPaths = path.resolve(config.sharedObjects);
+var sharedObjectsPath = path.resolve(config.sharedObjects);
+
+// import shared objects
+if (fs.existsSync(sharedObjectsPath)) {
+
+    var allDirs = {};
+    var dir = requireDir(sharedObjectsPath, { camelcase: true, recurse: true });
+
+    merge(allDirs, dir);
+
+    // if we managed to import some directories, expose them
+    if (Object.keys(allDirs).length > 0) {
+
+        // expose globally
+        global.sharedObjects = allDirs;
+    }
+}
+
+// add helpers
+global.helpers = helpers;
 
 // rewrite command line switches for cucumber
 process.argv.splice(2, 100);

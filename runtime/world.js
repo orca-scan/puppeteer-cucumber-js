@@ -5,15 +5,12 @@
 
 var fs = require('fs-plus');
 var path = require('path');
-var requireDir = require('require-dir');
-var merge = require('merge');
 var chalk = require('chalk');
 var puppeteer = require('puppeteer');
 var expect = require('chai').expect;
 var assert = require('chai').assert;
 var reporter = require('cucumber-html-reporter');
 var cucumberJunit = require('cucumber-junit');
-var helpers = require('../runtime/helpers.js');
 var edgePaths = require('edge-paths');
 
 var platform = process.platform;
@@ -28,41 +25,6 @@ catch (e) {
 
 var browserWidth = 1024;
 var browserHeight = 768;
-
-// import page objects (after global vars have been created)
-if (global.pageObjectPath && fs.existsSync(global.pageObjectPath)) {
-
-    // require all page objects using camel case as object names
-    global.pageObjects = requireDir(global.pageObjectPath, { camelcase: true, recurse: true });
-}
-
-
-// import shared objects from multiple paths (after global vars have been created)
-if (global.sharedObjectPaths && Array.isArray(global.sharedObjectPaths) && global.sharedObjectPaths.length > 0) {
-
-    var allDirs = {};
-
-    // first require directories into objects by directory
-    global.sharedObjectPaths.forEach(function (itemPath) {
-
-        if (fs.existsSync(itemPath)) {
-
-            var dir = requireDir(itemPath, { camelcase: true, recurse: true });
-
-            merge(allDirs, dir);
-        }
-    });
-
-    // if we managed to import some directories, expose them
-    if (Object.keys(allDirs).length > 0) {
-
-        // expose globally
-        global.sharedObjects = allDirs;
-    }
-}
-
-// add helpers
-global.helpers = helpers;
 
 /**
  * log output to the console in a readable/visible format
