@@ -26,9 +26,43 @@ catch (e) {
     console.log('Microsoft Edge not found');
 }
 
-
 var browserWidth = 1024;
 var browserHeight = 768;
+
+// import page objects (after global vars have been created)
+if (global.pageObjectPath && fs.existsSync(global.pageObjectPath)) {
+
+    // require all page objects using camel case as object names
+    global.pageObjects = requireDir(global.pageObjectPath, { camelcase: true, recurse: true });
+}
+
+
+// import shared objects from multiple paths (after global vars have been created)
+if (global.sharedObjectPaths && Array.isArray(global.sharedObjectPaths) && global.sharedObjectPaths.length > 0) {
+
+    var allDirs = {};
+
+    // first require directories into objects by directory
+    global.sharedObjectPaths.forEach(function (itemPath) {
+
+        if (fs.existsSync(itemPath)) {
+
+            var dir = requireDir(itemPath, { camelcase: true, recurse: true });
+
+            merge(allDirs, dir);
+        }
+    });
+
+    // if we managed to import some directories, expose them
+    if (Object.keys(allDirs).length > 0) {
+
+        // expose globally
+        global.sharedObjects = allDirs;
+    }
+}
+
+// add helpers
+global.helpers = helpers;
 
 /**
  * log output to the console in a readable/visible format
@@ -53,9 +87,7 @@ function createWorld() {
         page: null,                                 // puppeteer page object
         expect: expect,                             // expose chai expect to allow variable testing
         assert: assert,                             // expose chai assert to allow variable testing
-        trace: trace,                               // expose an info method to log output to the console in a readable/visible format
-        pageObjects: global.pageObjects || {},      // empty page objects placeholder
-        sharedObjects: global.sharedObjects || {}   // empty shared objects placeholder
+        trace: trace                                // expose an info method to log output to the console in a readable/visible format
     };
 
     // expose properties to step definition methods via global variables
@@ -67,47 +99,6 @@ function createWorld() {
         // make property/method available as a global (no this. prefix required)
         global[key] = runtime[key];
     });
-}
-
-/**
- * Import shared objects, pages object and helpers into global scope
- * @returns {void}
- */
-function importSupportObjects() {
-
-    // import shared objects from multiple paths (after global vars have been created)
-    if (global.sharedObjectPaths && Array.isArray(global.sharedObjectPaths) && global.sharedObjectPaths.length > 0) {
-
-        var allDirs = {};
-
-        // first require directories into objects by directory
-        global.sharedObjectPaths.forEach(function (itemPath) {
-
-            if (fs.existsSync(itemPath)) {
-
-                var dir = requireDir(itemPath, { camelcase: true, recurse: true });
-
-                merge(allDirs, dir);
-            }
-        });
-
-        // if we managed to import some directories, expose them
-        if (Object.keys(allDirs).length > 0) {
-
-            // expose globally
-            global.sharedObjects = allDirs;
-        }
-    }
-
-    // import page objects (after global vars have been created)
-    if (global.pageObjectPath && fs.existsSync(global.pageObjectPath)) {
-
-        // require all page objects using camel case as object names
-        global.pageObjects = requireDir(global.pageObjectPath, { camelcase: true, recurse: true });
-    }
-
-    // add helpers
-    global.helpers = helpers;
 }
 
 /**
@@ -129,7 +120,6 @@ function teardownBrowser() {
 module.exports = async function () {
 
     createWorld();
-    importSupportObjects();
 
     // this.World must be set!
     this.World = createWorld;
