@@ -41,7 +41,8 @@
     "fs-plus": "2.9.1",
     "merge": "^1.2.1",
     "puppeteer": "^5.5.0",
-    "require-dir": "0.3.2"
+    "require-dir": "0.3.2",
+    "text-files-loader": "^1.0.5"
   },
   "devDependencies": {
     "eslint": "^3.19.0",

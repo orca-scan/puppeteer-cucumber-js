@@ -9,6 +9,7 @@ var chalk = require('chalk');
 var helpers = require('./runtime/helpers.js');
 var merge = require('merge');
 var requireDir = require('require-dir');
+var textFilesLoader = require('text-files-loader');
 
 var config = {
     featureFiles: './features',
@@ -166,8 +167,28 @@ process.argv.push(path.resolve(__dirname, 'runtime/world.js'));
 process.argv.push('-r');
 process.argv.push(path.resolve(config.steps));
 
-// add tag
+// add tag(s)
 if (program.tags) {
+
+    // get all tags from feature files
+    var tagsFound = getFeaturesFileTags();
+
+    // go through each tag user passed in
+    program.tags.forEach(function (tag) {
+
+        // if tag does not start with `@` exit with error
+        if (tag[0] !== '@') {
+            logErrorToConsole('tags must start with a @');
+            process.exit();
+        }
+
+        // if tag does not exist in feature files, error
+        if (tagsFound.indexOf(tag) === -1) {
+            logErrorToConsole(`tag ${tag} not found`);
+            process.exit();
+        }
+    });
+
     program.tags.forEach(function (tag) {
         process.argv.push('-t');
         process.argv.push(tag);
@@ -264,4 +285,27 @@ function coerceInt(value, defaultValue) {
     if (typeof int === 'number') return int;
 
     return defaultValue;
+}
+
+/**
+ * Get tags from feature files
+ * @returns {Array<string>} list of all tags found
+ */
+function getFeaturesFileTags() {
+
+    // load all feature files into memory
+    textFilesLoader.setup({ matchRegExp: /\.feature/ });
+    var featureFiles = textFilesLoader.loadSync(path.resolve(config.featureFiles));
+
+    var result = [];
+
+    // go through each one and extract @tags
+    Object.keys(featureFiles).forEach(function(key) {
+
+        var content = String(featureFiles[key] || '');
+
+        result = result.concat(content.match(new RegExp('@[a-z0-9]+', 'g')));
+    });
+
+    return result;
 }
