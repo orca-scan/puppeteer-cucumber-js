@@ -74,7 +74,12 @@ function teardownBrowser() {
         case 'clear':
             return helpers.clearCookiesAndStorages();
         default:
-            return browser.close();
+            if (browser) {
+                return browser.close();
+            }
+            else {
+                return Promise.resolve();
+            }
     }
 }
 
