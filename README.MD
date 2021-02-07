@@ -38,7 +38,7 @@ npm install puppeteer-cucumber-js
 ## Usage
 
 ```bash
-node ./node_modules/puppeteer-cucumber-js/index.js
+npm puppeteer-cucumber-js
 ```
 
 ### Options
