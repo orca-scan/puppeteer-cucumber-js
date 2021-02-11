@@ -86,7 +86,7 @@ module.exports = {
             }, eventName),
 
             // if the event does not fire within n seconds, exit
-            page.waitFor(timeout)
+            page.waitForTimeout(timeout)
         ]);
     },
 
