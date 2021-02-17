@@ -51,6 +51,7 @@ program
     .option('--timeOut <number>', 'steps definition timeout in milliseconds. defaults to ' + config.timeout, coerceInt, config.timeout)
     .option('--worldParameters <JSON>', 'JSON object to pass to cucumber-js world constructor. defaults to empty', config.worldParameters)
     .option('--userAgent <string>', 'user agent string')
+    .option('--failFast', 'abort the run on first failure')
     .parse(process.argv);
 
 program.on('--help', function () {
@@ -166,6 +167,10 @@ process.argv.push(path.resolve(__dirname, 'runtime/world.js'));
 // add path to import step definitions
 process.argv.push('-r');
 process.argv.push(path.resolve(config.steps));
+
+if (program.failFast) {
+    process.argv.push('--fail-fast');
+}
 
 // add tag(s)
 if (program.tags) {
