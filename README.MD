@@ -57,6 +57,7 @@ node ./node_modules/puppeteer-cucumber-js/index.js # path to the module within y
 --worldParameters <JSON>        # JSON object to pass to cucumber-js world constructor
 --version                       # outputs puppeteer-cucumber-js version number
 --help                          # list puppeteer-cucumber-js options
+--failFast                      # abort the run on first failure
 ```
 
 ### Browser teardown strategy
