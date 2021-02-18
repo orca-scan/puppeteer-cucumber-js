@@ -34,7 +34,7 @@ module.exports = {
          */
         if (page === undefined) {
             page = await browser.newPage();
-            page.goto(url, {
+            await page.goto(url, {
                 timeout: DEFAULT_TIMEOUT,
                 waitUntil: 'networkidle0',
                 ...options
