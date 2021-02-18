@@ -1,6 +1,6 @@
 module.exports = {
 
-    url: 'http://www.google.co.uk',
+    url: 'http://www.google.co.uk/',
 
     selectors: {
         searchInput: '[name="q"]',
@@ -18,9 +18,6 @@ module.exports = {
 
         // get the selector above (pageObjects.googleSearch is this object)
         var selector = pageObjects.googleSearch.selectors.searchInput;
-
-        // accept Googles `Before you continue` cookie dialog
-        await helpers.clickElementWithinFrame(pageObjects.googleSearch.selectors.cookieIFrame, pageObjects.googleSearch.selectors.cookieAgreeButton);
 
         // set focus to the search box
         await page.focus(selector);

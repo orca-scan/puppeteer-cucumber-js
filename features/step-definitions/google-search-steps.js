@@ -1,9 +1,9 @@
 module.exports = function () {
 
-    this.Given(/^I am online at google.co.uk/, function() {
+    this.Given(/^I am online at "([^"]*)"/, function (url) {
 
         // use the ./page-objects/google-search.js url property
-        return helpers.loadPage(pageObjects.googleSearch.url);
+        return helpers.openPage(url);
     });
 
     this.When(/^I search Google for "([^"]*)"$/, function (searchQuery) {
@@ -16,5 +16,9 @@ module.exports = function () {
 
         // resolves if an item on the page contains text
         return helpers.waitForLinkText(keywords, false, 30);
+    });
+
+    this.Then(/^I should go back one page$/, function () {
+        return page.goBack();
     });
 };
