@@ -1,8 +1,6 @@
 module.exports = function () {
 
     this.Given(/^I am online at "([^"]*)"/, function (url) {
-
-        // use the ./page-objects/google-search.js url property
         return helpers.openPage(url);
     });
 
