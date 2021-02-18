@@ -18,6 +18,36 @@ module.exports = {
     },
 
     /**
+     * Opens URL in a new tab and set it as the current page, if the URL is 
+     * already open in another tab in the current browser then we will use 
+     * that instead of opening a new one.
+     * @param {*} url 
+     * @param {*} options 
+     */
+    openPage: async function (url, options) {
+        const pages = await browser.pages();
+        page = pages.find(page => page.url() === url);
+
+        /**
+         * We've not been able to find the page in current browser instance,
+         * so lets open one and navigate to the url.
+         */
+        if (page === undefined) {
+            page = await browser.newPage();
+            await page.goto(url, {
+                timeout: DEFAULT_TIMEOUT,
+                waitUntil: 'networkidle0',
+                ...options
+            });
+        }
+
+        /**
+         * Set the global page and bring to front.
+         */
+        page.bringToFront();
+    },
+
+    /**
      * Removes an element from the dom
      * @param {string} selector - query selector
      * @returns {Promise} resolves when complete

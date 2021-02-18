@@ -242,6 +242,10 @@ module.exports = function () {
 // Load a URL, returning only when all network activity has finished
 helpers.loadPage('http://www.google.com');
 
+// Open a URL in a new tab or switch to the tab that already has it open and 
+// set it's instance as the global page variable.
+helpers.openPage('http://www.yahoo.com');
+
 // Removes an element from the dom
 helpers.removeElement('p > span');
 
