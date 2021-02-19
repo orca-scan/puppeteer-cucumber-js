@@ -18,11 +18,12 @@ module.exports = {
     },
 
     /**
-     * Opens URL in a new tab and set it as the current page, if the URL is 
-     * already open in another tab in the current browser then we will use 
+     * Opens URL in a new tab and set it as the current page, if the URL is
+     * already open in another tab in the current browser then we will use
      * that instead of opening a new one.
-     * @param {*} url 
-     * @param {*} options 
+     * @param {string} url - url to open (or find in existing tab)
+     * @param {object} options - puppeteer page.goto options
+     * @returns {Promise} resolves once new sheet open or focused
      */
     openPage: async function (url, options) {
         const pages = await browser.pages();
