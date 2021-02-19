@@ -1,3 +1,5 @@
+var urlParser = require('url');
+
 module.exports = {
 
     /**
@@ -18,13 +20,19 @@ module.exports = {
     },
 
     /**
-     * Opens URL in a new tab and set it as the current page, if the URL is 
-     * already open in another tab in the current browser then we will use 
+     * Opens URL in a new tab and set it as the current page, if the URL is
+     * already open in another tab in the current browser then we will use
      * that instead of opening a new one.
-     * @param {*} url 
-     * @param {*} options 
+     * @param {string} url - url to open (or find in existing tab)
+     * @param {object} options - puppeteer page.goto options
+     * @returns {Promise} resolves once new sheet open or focused
      */
     openPage: async function (url, options) {
+
+        // URLs returned from Chrome always have a trailing /
+        // So convert incoming URL to match (converts urlParser.parse('https://api.com?23234234').format() to 'https://api.com/?23234234')
+        url = urlParser.parse(url).format();
+
         const pages = await browser.pages();
         page = pages.find(page => page.url() === url);
 
