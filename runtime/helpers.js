@@ -1,3 +1,5 @@
+var urlParser = require('url');
+
 module.exports = {
 
     /**
@@ -26,6 +28,11 @@ module.exports = {
      * @returns {Promise} resolves once new sheet open or focused
      */
     openPage: async function (url, options) {
+
+        // URLs returned from Chrome always have a trailing /
+        // So convert incoming URL to match (converts urlParser.parse('https://api.com?23234234').format() to 'https://api.com/?23234234')
+        url = urlParser.parse(url).format();
+
         const pages = await browser.pages();
         page = pages.find(page => page.url() === url);
 
