@@ -16,11 +16,11 @@ Works with [Chrome](https://www.google.com/intl/en_uk/chrome/), [Firefox](https:
   * [Options](#options)
   * [Browser teardown strategy](#browser-teardown-strategy)
   * [Directory structure](#directory-structure)
-  * [What are Feature files?](#what-are-feature-files)
-  * [What are Step definitions?](#what-are-step-definitions)
-  * [What are Page objects?](#what-are-page-objects)
-  * [What are Shared objects?](#what-are-shared-objects)
-  * [What are Helpers?](#what-are-helpers)
+  * [Feature files](#feature-files)
+  * [Step definitions](#step-definitions)
+  * [Page objects](#page-objects)
+  * [Shared objects](#shared-objects)
+  * [Helpers](#helpers)
   * [Before/After hooks](#beforeafter-hooks)
   * [Reports](#reports)
   * [How to debug](#how-to-debug)
@@ -90,7 +90,7 @@ Your files must live in a `features` folder within the root of your project:
         └── junit-report.xml
 ```
 
-### What are Feature files?
+### Feature files
 
 A [Feature file](/features/google-search.feature) is a Business Readable file that lets you describe software behavior without detailing how that behavior is implemented. Feature files are written using the [Gherkin syntax](https://github.com/cucumber/cucumber/wiki/Gherkin).
 
@@ -108,7 +108,7 @@ Feature: Searching for a barcode scanner app
     Then I should see "Orca Scan" in the results
 ```
 
-### What are Step definitions?
+### Step definitions
 
 [Step definitions](features/step-definitions/google-search-steps.js) act as the glue between features files and the actual system under test. To avoid confusion **always** return a JavaScript promise from step definitions to let cucumber know when your task has completed.
 
@@ -146,7 +146,7 @@ Variable      | Description
 `assert`      | instance of [chai assert](http://chaijs.com/api/assert/) to ```assert.isOk('everything', 'everything is ok')```
 `expect`      | instance of [chai expect](http://chaijs.com/api/bdd/) to ```expect('something').to.equal('something')```
 
-### What are Page objects?
+### Page objects
 
 [Page objects](/features/page-objects/google-search.js) allow you to define information about a specific page in one place such as selector, methods etc.
 These objects are accessible from within your step definition files and help to reduce code duplication. Should your page change, you can fix your tests by modifying the selectors in one location.
@@ -194,7 +194,7 @@ module.exports = {
 };
 ```
 
-### What are Shared objects?
+### Shared objects
 
 [Shared objects](/features/shared-objects/test-data.js) allow you to share anything from test data to helper methods throughout your project via a global ```sharedObjects``` object. Shared objects are automatically loaded from ```./features/shared-objects/``` and made available via a camel-cased version of their filename, for example ```./features/shared-objects/test-data.js``` becomes ```sharedObjects.testData```. You can also use subdirectories, for example ```./features/shared-objects/dir/test-data.js``` becomes ```sharedObjects.dir.testData```.
 
@@ -234,7 +234,7 @@ module.exports = function () {
 };
 ```
 
-### What are Helpers?
+### Helpers
 
 [Helpers](/runtime/helpers.js) are globally defined helper methods that simplify working with puppeteer:
 
