@@ -58,6 +58,7 @@ node ./node_modules/puppeteer-cucumber-js/index.js # path to the module within y
 --version                       # outputs puppeteer-cucumber-js version number
 --help                          # list puppeteer-cucumber-js options
 --failFast                      # abort the run on first failure
+--slowMo <n>                    # specified amount of millseconds to slow down Puppeteer operations by. defaults to 10 ms
 ```
 
 ### Browser teardown strategy
