@@ -10,6 +10,7 @@ var helpers = require('./runtime/helpers.js');
 var merge = require('merge');
 var requireDir = require('require-dir');
 var textFilesLoader = require('text-files-loader');
+var networkSpeeds = require('./runtime/network-speed.js');
 
 var config = {
     featureFiles: './features',
@@ -55,6 +56,7 @@ program
     .option('--userAgent <string>', 'user agent string')
     .option('--failFast', 'abort the run on first failure')
     .option('--slowMo <number>', 'specified amount of milliseconds to slow down Puppeteer operations by. Defaults to ' + config.slowMo)
+    .option('--networkSpeed <name>', 'simulate connection speeds, options are: gprs, 2g, 3g, 4g, dsl, wifi. Defaults is unset (full speed)')
     .parse(process.argv);
 
 program.on('--help', function () {
@@ -125,6 +127,19 @@ global.DEFAULT_TIMEOUT = program.timeOut || config.timeout;
 
 // set the default slowMo if not passed via the command line
 global.DEFAULT_SLOW_MO = program.slowMo || config.slowMo;
+
+// set network speed if present
+if (program.networkSpeed) {
+
+    // if network speed is defined, use it
+    if (networkSpeeds[program.networkSpeed]) {
+        global.networkSpeed = networkSpeeds[program.networkSpeed];
+    }
+    // otherwise throw an error
+    else {
+        throw new Error('Invalid --networkSpeed, options are ' + Object.keys(networkSpeeds));
+    }
+}
 
 // used within world.js to import shared objects into the shared namespace
 var sharedObjectsPath = path.resolve(config.sharedObjects);

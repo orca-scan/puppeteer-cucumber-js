@@ -12,6 +12,7 @@ var assert = require('chai').assert;
 var reporter = require('cucumber-html-reporter');
 var cucumberJunit = require('cucumber-junit');
 var edgePaths = require('edge-paths');
+var networkSpeeds = require('../runtime/network-speed.js');
 
 var platform = process.platform;
 var edgePath = '';
@@ -128,6 +129,16 @@ module.exports = async function () {
 
             // using first tab
             global.page = pages[0];
+
+            // throttle network if required
+            if (global.networkSpeed) {
+
+                // connect to dev tools
+                var client = await page.target().createCDPSession();
+
+                // set throttling
+                await client.send('Network.emulateNetworkConditions', global.networkSpeed);
+            }
 
             // set user agent if present
             if (userAgent !== '') {
