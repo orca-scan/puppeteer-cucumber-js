@@ -59,7 +59,7 @@ node ./node_modules/puppeteer-cucumber-js/index.js # path to the module within y
 --help                          # list puppeteer-cucumber-js options
 --failFast                      # abort the run on first failure
 --slowMo <n>                    # specified amount of milliseconds to slow down Puppeteer operations by. defaults to 10 ms
---networkSpeed <name>           # simulate connection speeds (gprs, 2g, 3g, 4g, dsl, wifi). default full speed 
+--networkSpeed <name>           # simulate network speed (gprs, 2g, 3g, 4g, dsl, wifi). default full speed 
 ```
 
 ### Browser teardown strategy
