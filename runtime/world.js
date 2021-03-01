@@ -103,7 +103,7 @@ module.exports = async function () {
                 product: browserName || 'chrome',
                 defaultViewport: null,
                 devtools: devTools === true,
-                slowMo: 10, // slow down by 10ms so we can view in headful mode
+                slowMo: global.DEFAULT_SLOW_MO, // slow down by specified ms so we can view in headful mode
                 args: [
                     `--window-size=${browserWidth},${browserHeight}`
                 ]
