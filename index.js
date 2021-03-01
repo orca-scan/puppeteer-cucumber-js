@@ -54,7 +54,7 @@ program
     .option('--worldParameters <JSON>', 'JSON object to pass to cucumber-js world constructor. defaults to empty', config.worldParameters)
     .option('--userAgent <string>', 'user agent string')
     .option('--failFast', 'abort the run on first failure')
-    .option('--slowMo <number>', 'specified amount of millseconds to slow down Puppeteer operations by. Defaults to ' + config.slowMo)
+    .option('--slowMo <number>', 'specified amount of milliseconds to slow down Puppeteer operations by. Defaults to ' + config.slowMo)
     .parse(process.argv);
 
 program.on('--help', function () {
@@ -120,11 +120,11 @@ global.disableLaunchReport = (program.disableLaunchReport);
 // used with world.js to determine if a screenshot should be captured on error
 global.noScreenshot = (program.noScreenshot);
 
-// set the default timeout to 10 seconds if not already globally defined or passed via the command line
-global.DEFAULT_TIMEOUT = global.DEFAULT_TIMEOUT || program.timeOut || 10 * 1000;
+// set the default timeout if not passed via the command line
+global.DEFAULT_TIMEOUT = program.timeOut || config.timeout;
 
-// set the slowMo option to 10 ms if not already globally defined or passed via the command line
-global.DEFAULT_SLOW_MO = global.DEFAULT_SLOW_MO || program.slowMo || 10;
+// set the default slowMo if not passed via the command line
+global.DEFAULT_SLOW_MO = program.slowMo || config.slowMo;
 
 // used within world.js to import shared objects into the shared namespace
 var sharedObjectsPath = path.resolve(config.sharedObjects);
