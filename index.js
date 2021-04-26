@@ -57,11 +57,15 @@ program
     .option('--failFast', 'abort the run on first failure')
     .option('--slowMo <number>', 'specified amount of milliseconds to slow down Puppeteer operations by. Defaults to ' + config.slowMo)
     .option('--networkSpeed <name>', 'simulate connection speeds, options are: gprs, 2g, 3g, 4g, dsl, wifi. Defaults is unset (full speed)')
+    .option('--updateBaselineImage', 'automatically update the baseline image after a failed comparison')
     .parse(process.argv);
 
 program.on('--help', function () {
     console.log('  For more details please visit https://github.com/orca-scan/puppeteer-cucumber-js#readme\n');
 });
+
+// // updates the all baseline images
+// global.updateBaselineImage = program.updateBaselineImage;
 
 // name of the browser to use for the test
 global.browserName = program.browser || global.browserName;

@@ -244,5 +244,61 @@ module.exports = {
             return page.evaluate('debugger');
         }
         return Promise.reject(new Error('DevTools must be enabled to use helpers.debug(). Enable DevTools using the -devTools switch'));
+    },
+
+    /**
+     * Visual comparison function
+     * @param fileName
+     * @returns {Promise<void>}
+     */
+    compareImage: async (fileName) => {
+        // eslint-disable-next-line global-require
+        const verify = require('./imageCompare');
+        await verify.assertion(fileName);
+        await verify.value();
+        await verify.pass();
+    },
+
+    /**
+     * @param fileName
+     * @param elementsToHide
+     * @returns {Promise<void>}
+     */
+    takeImage: async (fileName, elementsToHide) => {
+        // eslint-disable-next-line global-require
+        const verify = require('./imageCompare');
+        await verify.takeScreenshot(fileName, elementsToHide);
+    },
+
+    /**
+     * hideElemements hide elements
+     * @param selectors
+     */
+    hideElements: async (selectors) => {
+        // if arg is no array make it one
+        // eslint-disable-next-line no-param-reassign
+        selectors = typeof selectors === 'string' ? [selectors] : selectors;
+        // eslint-disable-next-line no-plusplus
+        for (let i = 0; i < selectors.length; i++) {
+            const script = `document.querySelectorAll('${selectors[i]}').forEach(element => element.style.opacity = '0')`;
+            // eslint-disable-next-line no-await-in-loop
+            await browser.execute(script);
+        }
+    },
+
+    /**
+     * showElemements show elements
+     * @param selectors
+     */
+    showElements: async (selectors) => {
+        // if arg is no array make it one
+        // eslint-disable-next-line no-param-reassign
+        selectors = typeof selectors === 'string' ? [selectors] : selectors;
+        // eslint-disable-next-line no-plusplus
+        for (let i = 0; i < selectors.length; i++) {
+            const script = `document.querySelectorAll('${selectors[i]}').forEach(element => element.style.opacity = '1')`;
+            // eslint-disable-next-line no-await-in-loop
+            await browser.execute(script);
+        }
     }
 };
