@@ -328,6 +328,17 @@ module.exports = function () {
 };
 ```
 
+### Visual Regression
+
+Visual regression testing, the ability to compare a whole page screenshots or of specific parts of the application / page under test.
+If there is dynamic content (i.e. a clock), hide this element by passing the selector (or an array of selectors, comma separated) to the takeImage function.
+```js
+// usage within page-object file:
+  await helpers.takeImage(fileName, [elementsToHide, elementsToHide]);
+  await browser.pause(100);
+  await helpers.compareImage(fileName);
+```
+
 ### Reports
 
 HTML, JSON and JUnit reports are auto generated with each test run and stored in `./features/reports/`:
