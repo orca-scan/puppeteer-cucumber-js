@@ -20,8 +20,7 @@ module.exports = {
         // get the selector above (pageObjects.googleSearch is this object)
         const selector = pageObjects.googleSearch.selectors.searchInput;
         await helpers.takeImage(`${image}_1-0.png`);
-        await page.waitForTimeout(100);
-        await helpers.compareImage(`${image}_1-0.png`);
+
         // set focus to the search box
         await page.focus(selector);
 
@@ -29,6 +28,7 @@ module.exports = {
         await page.keyboard.type(searchQuery, { delay: 100 });
 
         // press enter
+        await helpers.compareImage(`${image}_1-0.png`);
         return page.keyboard.press('Enter');
     }
 };

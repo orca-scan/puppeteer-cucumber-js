@@ -160,6 +160,7 @@ Page objects also have access to the same runtime variables available to step de
 An example page object:
 
 ```javascript
+let image;
 module.exports = {
 
     url: 'http://www.google.co.uk',
@@ -177,10 +178,11 @@ module.exports = {
      * @returns {Promise} a promise to enter the search values
      */
     preformSearch: async function (searchQuery) {
-
+        image = searchQuery;
         // get the selector above (pageObjects.googleSearch is this object)
         var selector = pageObjects.googleSearch.selectors.searchInput;
-
+        await helpers.takeImage(`${image}_1-0.png`);
+        
         // accept Googles `Before you continue` cookie dialog
         await helpers.clickElementWithinFrame(pageObjects.googleSearch.selectors.cookieIFrame, pageObjects.googleSearch.selectors.cookieAgreeButton);
 
@@ -191,6 +193,7 @@ module.exports = {
         await page.keyboard.type(searchQuery, { delay: 100 });
 
         // press enter
+        await helpers.compareImage(`${image}_1-0.png`);
         return page.keyboard.press('Enter');
     }
 };
@@ -277,6 +280,12 @@ helpers.clearCookiesAndStorages();
 
 // Stop the browser in debug mode (must have DevTools open)
 helpers.debug()
+
+// take image for comparisson
+helpers.takeImage('image_1-0.png', ['dynamic elements to hide']);
+
+// compare taken image with baseline image
+helpers.compareImage('image_1-0.png');
 ```
 
 ### Before/After hooks
