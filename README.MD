@@ -22,6 +22,7 @@ Works with [Chrome](https://www.google.com/intl/en_uk/chrome/), [Firefox](https:
   * [Shared objects](#shared-objects)
   * [Helpers](#helpers)
   * [Before/After hooks](#beforeafter-hooks)
+  * [Visual Regression](#visual-regression)  
   * [Reports](#reports)
   * [How to debug](#how-to-debug)
 * [Demo](#demo)
