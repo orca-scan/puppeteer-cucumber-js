@@ -1,7 +1,3 @@
-/**
- * OUP Automated Testing Tool
- * Created by Larry Goddard
- */
 const resemble = require('node-resemble-js');
 const fs = require('fs-extra');
 const program = require('commander');
