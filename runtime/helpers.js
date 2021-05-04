@@ -1,4 +1,7 @@
 var urlParser = require('url');
+const fs = require('fs-extra');
+const PNG = require('pngjs').PNG;
+const pixelmatch = require('pixelmatch');
 
 module.exports = {
 
@@ -290,5 +293,21 @@ module.exports = {
             const script = `document.querySelectorAll('${selectors[i]}').forEach(element => element.style.opacity = '1')`;
             await browser.execute(script);
         }
+    },
+
+    /**
+     * Returns number of pixels that are different between two images
+     * @param {string} fileName1 - name of the first file
+     * @param {string} fileName2 - name of the second file
+     * @returns
+     */
+    numDiffPixels: async (fileName1, fileName2) => {
+        const img1 = PNG.sync.read(fs.readFileSync('./artifacts/visual-regression/original/chrome/positive/' + fileName1 + '.png'));
+        const img2 = PNG.sync.read(fs.readFileSync('./artifacts/visual-regression/original/chrome/positive/' + fileName2 + '.png'));
+        const { width, height } = img1;
+        const diff = new PNG({ width, height });
+        const numDiffPixels = pixelmatch(img1.data, img2.data, diff.data, width, height, { threshold: 0.1 });
+        return numDiffPixels;
     }
+
 };
