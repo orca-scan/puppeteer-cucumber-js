@@ -4,3 +4,4 @@ node_modules
 junit
 .DS_Store
 features/reports
+artifacts

@@ -1,4 +1,7 @@
 var urlParser = require('url');
+const fs = require('fs-extra');
+const PNG = require('pngjs').PNG;
+const pixelmatch = require('pixelmatch');
 
 module.exports = {
 
@@ -244,5 +247,67 @@ module.exports = {
             return page.evaluate('debugger');
         }
         return Promise.reject(new Error('DevTools must be enabled to use helpers.debug(). Enable DevTools using the -devTools switch'));
+    },
+
+    /**
+     * Visual comparison function
+     * @param fileName
+     * @returns {Promise<void>}
+     */
+    compareImage: async (fileName) => {
+        const verify = require('./imageCompare');
+        await verify.assertion(fileName);
+        await verify.value();
+        await verify.pass();
+    },
+
+    /**
+     * @param fileName
+     * @param elementsToHide
+     * @returns {Promise<void>}
+     */
+    takeImage: async (fileName, elementsToHide) => {
+        const verify = require('./imageCompare');
+        await verify.takeScreenshot(fileName, elementsToHide);
+    },
+
+    /**
+     * hideElemements hide elements
+     * @param selectors
+     */
+    hideElements: async (selectors) => {
+        selectors = typeof selectors === 'string' ? [selectors] : selectors;
+        for (let i = 0; i < selectors.length; i++) {
+            const script = `document.querySelectorAll('${selectors[i]}').forEach(element => element.style.opacity = '0')`;
+            await browser.execute(script);
+        }
+    },
+
+    /**
+     * showElemements show elements
+     * @param selectors
+     */
+    showElements: async (selectors) => {
+        selectors = typeof selectors === 'string' ? [selectors] : selectors;
+        for (let i = 0; i < selectors.length; i++) {
+            const script = `document.querySelectorAll('${selectors[i]}').forEach(element => element.style.opacity = '1')`;
+            await browser.execute(script);
+        }
+    },
+
+    /**
+     * Returns number of pixels that are different between two images
+     * @param {string} fileName1 - name of the first file
+     * @param {string} fileName2 - name of the second file
+     * @returns
+     */
+    numDiffPixels: async (fileName1, fileName2) => {
+        const img1 = PNG.sync.read(fs.readFileSync('./artifacts/visual-regression/original/chrome/positive/' + fileName1 + '.png'));
+        const img2 = PNG.sync.read(fs.readFileSync('./artifacts/visual-regression/original/chrome/positive/' + fileName2 + '.png'));
+        const { width, height } = img1;
+        const diff = new PNG({ width, height });
+        const numDiffPixels = pixelmatch(img1.data, img2.data, diff.data, width, height, { threshold: 0.1 });
+        return numDiffPixels;
     }
+
 };

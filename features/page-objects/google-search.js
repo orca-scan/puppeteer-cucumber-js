@@ -1,3 +1,4 @@
+let image;
 module.exports = {
 
     url: 'http://www.google.co.uk/',
@@ -15,9 +16,10 @@ module.exports = {
      * @returns {Promise} a promise to enter the search values
      */
     preformSearch: async function (searchQuery) {
-
+        image = searchQuery;
         // get the selector above (pageObjects.googleSearch is this object)
-        var selector = pageObjects.googleSearch.selectors.searchInput;
+        const selector = pageObjects.googleSearch.selectors.searchInput;
+        await helpers.takeImage(`${image}_1-0.png`);
 
         // set focus to the search box
         await page.focus(selector);
@@ -26,6 +28,7 @@ module.exports = {
         await page.keyboard.type(searchQuery, { delay: 100 });
 
         // press enter
+        await helpers.compareImage(`${image}_1-0.png`);
         return page.keyboard.press('Enter');
     }
 };
