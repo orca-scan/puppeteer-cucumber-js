@@ -64,9 +64,6 @@ program.on('--help', function () {
     console.log('  For more details please visit https://github.com/orca-scan/puppeteer-cucumber-js#readme\n');
 });
 
-// // updates the all baseline images
-// global.updateBaselineImage = program.updateBaselineImage;
-
 // name of the browser to use for the test
 global.browserName = program.browser || global.browserName;
 

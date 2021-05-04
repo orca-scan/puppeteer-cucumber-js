@@ -10,7 +10,6 @@ const diffDir = `./artifacts/visual-regression/diffs/${browserName}/`;
 const diffDirPositive = `${diffDir}positive/`;
 const diffDirNegative = `${diffDir}negative/`;
 
-// eslint-disable-next-line camelcase
 let fileName;
 let diffFile;
 
@@ -37,7 +36,6 @@ module.exports = {
         if (elementsToHide) {
             await helpers.showElements(elementsToHide);
         }
-      // eslint-disable-next-line no-console
         console.log(`\t images saved to: ${resultPathPositive}`);
     },
 
@@ -58,9 +56,7 @@ module.exports = {
         this.expected = expected || 0.1; // misMatchPercentage tolerance default 0.3%
         if (!fs.existsSync(baselinePath)) {
       // create new baseline image if none exists
-            // eslint-disable-next-line no-console
             console.log('\t WARNING: Baseline image does NOT exist.');
-            // eslint-disable-next-line no-console
             console.log(`\t Creating Baseline image from Result: ${baselinePath}`);
             fs.writeFileSync(baselinePath, fs.readFileSync(resultPathPositive));
         }
@@ -78,23 +74,17 @@ module.exports = {
       .compareTo(resultPathPositive)
       .ignoreAntialiasing()
       .ignoreColors()
-      // eslint-disable-next-line func-names
       .onComplete(async (res) => {
-        // eslint-disable-next-line no-param-reassign
           result = await res;
       });
     /**
      * @returns {Promise<void>}
      */
-    // eslint-disable-next-line func-names
         this.value = async function () {
-      // eslint-disable-next-line no-param-reassign
             filename = await fileName;
             const resultPathNegative = `${resultDirNegative}${filename}`;
-      // eslint-disable-next-line no-shadow
             const resultPathPositive = `${resultDirPositive}${filename}`;
             while (typeof result === 'undefined') {
-        // eslint-disable-next-line no-await-in-loop
                 await page.waitForTimeout(100);
             }
             const error = parseFloat(result.misMatchPercentage); // value this.pass is called with
@@ -105,15 +95,12 @@ module.exports = {
 
                 const writeStream = fs.createWriteStream(diffFile);
                 await result.getDiffImage().pack().pipe(writeStream);
-        // eslint-disable-next-line func-names
                 writeStream.on('error', (err) => {
-                    // eslint-disable-next-line no-console
                     console.log('this is the writeStream error ', err);
                 });
                 fs.ensureDirSync(resultDirNegative); // Make sure destination folder exists, if not, create it
                 fs.removeSync(resultPathNegative);
                 fs.moveSync(resultPathPositive, resultPathNegative);
-                // eslint-disable-next-line no-console
                 console.log(`\t Create diff image [negative]: ${diffFile}`);
             }
             else {
@@ -121,9 +108,7 @@ module.exports = {
 
                 const writeStream = fs.createWriteStream(diffFile);
                 result.getDiffImage().pack().pipe(writeStream);
-        // eslint-disable-next-line func-names
                 writeStream.on('error', (err) => {
-                    // eslint-disable-next-line no-console
                     console.log('this is the writeStream error ', err);
                 });
             }
@@ -131,36 +116,29 @@ module.exports = {
     /**
      * @returns {Promise<boolean>}
      */
-    // eslint-disable-next-line func-names
         this.pass = async function () {
-      // eslint-disable-next-line no-param-reassign
             value = parseFloat(result.misMatchPercentage);
             this.message = `image Match Failed for ${filename} with a tolerance difference of ${`${
         value - this.expected
       } - expected: ${this.expected} but got: ${value}`}`;
-      // eslint-disable-next-line no-shadow
             const baselinePath = `${baselineDir}${filename}`;
             const resultPathNegative = `${resultDirNegative}${filename}`;
             const pass = value <= this.expected;
             const err = value > this.expected;
 
             if (pass) {
-                // eslint-disable-next-line no-console
                 console.log(`image Match for ${filename} with ${value}% difference.`);
                 await page.waitForTimeout(1000);
             }
 
             if (err === true && program.updateBaselineImages) {
-                // eslint-disable-next-line no-console
                 console.log(
           `${this.message}   images at:\n` +
             `   Baseline: ${baselinePath}\n` +
             `   Result: ${resultPathNegative}\n` +
             `    cp ${resultPathNegative} ${baselinePath}`
         );
-        // eslint-disable-next-line no-shadow
                 await fs.copy(resultPathNegative, baselinePath, (err) => {
-                    // eslint-disable-next-line no-console
                     console.log(` All Baseline images have now been updated from: ${resultPathNegative}`);
                     if (err) {
                         log.error('The Baseline images were NOT updated: ', err.message);
@@ -169,7 +147,6 @@ module.exports = {
                 });
             }
             else if (err) {
-                // eslint-disable-next-line no-console
                 console.log(
           `${this.message}   images at:\n` +
             `   Baseline: ${baselinePath}\n` +
@@ -179,7 +156,6 @@ module.exports = {
             '   If the Resulting image is correct you can use it to update the Baseline image and re-run your test:\n' +
             `    cp ${resultPathNegative} ${baselinePath}`
         );
-        // eslint-disable-next-line no-throw-literal
                 throw `${err} - ${this.message}`;
             }
         };

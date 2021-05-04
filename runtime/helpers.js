@@ -252,7 +252,6 @@ module.exports = {
      * @returns {Promise<void>}
      */
     compareImage: async (fileName) => {
-        // eslint-disable-next-line global-require
         const verify = require('./imageCompare');
         await verify.assertion(fileName);
         await verify.value();
@@ -265,7 +264,6 @@ module.exports = {
      * @returns {Promise<void>}
      */
     takeImage: async (fileName, elementsToHide) => {
-        // eslint-disable-next-line global-require
         const verify = require('./imageCompare');
         await verify.takeScreenshot(fileName, elementsToHide);
     },
@@ -275,13 +273,9 @@ module.exports = {
      * @param selectors
      */
     hideElements: async (selectors) => {
-        // if arg is no array make it one
-        // eslint-disable-next-line no-param-reassign
         selectors = typeof selectors === 'string' ? [selectors] : selectors;
-        // eslint-disable-next-line no-plusplus
         for (let i = 0; i < selectors.length; i++) {
             const script = `document.querySelectorAll('${selectors[i]}').forEach(element => element.style.opacity = '0')`;
-            // eslint-disable-next-line no-await-in-loop
             await browser.execute(script);
         }
     },
@@ -291,13 +285,9 @@ module.exports = {
      * @param selectors
      */
     showElements: async (selectors) => {
-        // if arg is no array make it one
-        // eslint-disable-next-line no-param-reassign
         selectors = typeof selectors === 'string' ? [selectors] : selectors;
-        // eslint-disable-next-line no-plusplus
         for (let i = 0; i < selectors.length; i++) {
             const script = `document.querySelectorAll('${selectors[i]}').forEach(element => element.style.opacity = '1')`;
-            // eslint-disable-next-line no-await-in-loop
             await browser.execute(script);
         }
     }

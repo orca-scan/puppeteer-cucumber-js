@@ -173,6 +173,7 @@ module.exports = async function () {
             fs.writeFileSync(junitOutputPath, xmlReport);
         }
 
+        // teardownBrowser().then(done);
         teardownBrowser().then(done);
     });
 
