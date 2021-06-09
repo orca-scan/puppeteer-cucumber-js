@@ -389,4 +389,4 @@ PRs welcome 🤓
 
 ## License
 
-Licensed under [ISC License](LICENSE) &copy; Orca Scan, the [Barcode Scanner app for iOS and Android](https://orcascan.com).
+Licensed under <a href="/orca-scan/puppeteer-cucumber-js/blob/main/LICENSE">ISC License</a> © Orca Scan, the <a href="https://orcascan.com">Barcode Scanner app for iOS and Android</a>.
