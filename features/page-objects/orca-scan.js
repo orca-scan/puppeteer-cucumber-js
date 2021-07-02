@@ -3,7 +3,7 @@ module.exports = {
     url: 'https://orcascan.com',
 
     selectors: {
-        bookADemoButton: 'a[onclick^="Calendly.initPopupWidget"]',
+        bookADemoButton: 'a[href^="/book-a-demo"]',
         calendlyIFrame: 'iframe[src*="calendly.com"]',
         calendlyIframeDemoButton: 'a[href*="orca-scan/demo"]'
     },
