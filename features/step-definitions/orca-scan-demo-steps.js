@@ -1,21 +1,25 @@
-module.exports = function () {
+/* eslint new-cap: "off" */
+const { Given, When, Then, setWorldConstructor } = require('@cucumber/cucumber');
+const CustomWorld = require('../../runtime/world');
 
-    this.Given(/^I am on the Orca Scan barcode tracking website/, function() {
-        return helpers.loadPage(pageObjects.orcaScan.url);
-    });
+setWorldConstructor(CustomWorld);
+CustomWorld.setup();
 
-    this.When(/^I click the Book a demo button$/, async function () {
+Given(/^I am on the Orca Scan barcode tracking website/, function() {
+    return helpers.loadPage(this.page, pageObjects.orcaScan.url);
+});
 
-        // click the book a demo button
-        await page.click(pageObjects.orcaScan.selectors.bookADemoButton);
+When(/^I click the Book a demo button$/, async function () {
 
-        // wait for calendly iframe to appear
-        await page.waitForSelector(pageObjects.orcaScan.selectors.calendlyIFrame);
-    });
+    // click the book a demo button
+    await this.page.click(pageObjects.orcaScan.selectors.bookADemoButton);
 
-    this.Then(/^I should be able to book a demo$/, function () {
+    // wait for calendly iframe to appear
+    await this.page.waitForSelector(pageObjects.orcaScan.selectors.calendlyIFrame);
+});
 
-        // check the calendly booking frame appears
-        return page.$(pageObjects.orcaScan.selectors.calendlyIFrame);
-    });
-};
+Then(/^I should be able to book a demo$/, function () {
+
+    // check the calendly booking frame appears
+    return this.page.$(pageObjects.orcaScan.selectors.calendlyIFrame);
+});

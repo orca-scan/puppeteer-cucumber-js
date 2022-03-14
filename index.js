@@ -4,7 +4,7 @@ var fs = require('fs-plus');
 var path = require('path');
 var program = require('commander');
 var pjson = require('./package.json');
-var cucumber = require('cucumber');
+var cucumber = require('@cucumber/cucumber');
 var chalk = require('chalk');
 var helpers = require('./runtime/helpers.js');
 var merge = require('merge');
@@ -39,6 +39,7 @@ global.disableLaunchReport = false;
 global.noScreenshot = false;
 global.slowMo = config.slowMo;
 
+const argVParams = [... process.argv];
 program
     .version(pjson.version)
     .description(pjson.description)
@@ -58,7 +59,7 @@ program
     .option('--slowMo <number>', 'specified amount of milliseconds to slow down Puppeteer operations by. Defaults to ' + config.slowMo)
     .option('--networkSpeed <name>', 'simulate connection speeds, options are: gprs, 2g, 3g, 4g, dsl, wifi. Defaults is unset (full speed)')
     .option('--updateBaselineImage', 'automatically update the baseline image after a failed comparison')
-    .parse(process.argv);
+    .parse(argVParams);
 
 program.on('--help', function () {
     console.log('  For more details please visit https://github.com/orca-scan/puppeteer-cucumber-js#readme\n');
@@ -165,33 +166,33 @@ if (fs.existsSync(sharedObjectsPath)) {
 global.helpers = helpers;
 
 // rewrite command line switches for cucumber
-process.argv.splice(2, 100);
+argVParams.splice(2, 100);
 
 // allow specific feature files to be executed
 if (program.featureFiles) {
     var splitFeatureFiles = program.featureFiles.split(',');
 
     splitFeatureFiles.forEach(function (feature) {
-        process.argv.push(feature);
+        argVParams.push(feature);
     });
 }
 
 // add switch to tell cucumber to produce json report files
 process.argv.push('-f');
-process.argv.push('pretty');
-process.argv.push('-f');
+// process.argv.push('pretty');
+// process.argv.push('-f');
 process.argv.push('json:' + path.resolve(__dirname, global.reportsPath, 'cucumber-report.json'));
 
 // add cucumber world as first required script (this sets up the globals)
-process.argv.push('-r');
-process.argv.push(path.resolve(__dirname, 'runtime/world.js'));
+argVParams.push('--require');
+argVParams.push(path.resolve(__dirname, 'runtime/world.js'));
 
 // add path to import step definitions
-process.argv.push('-r');
-process.argv.push(path.resolve(config.steps));
+argVParams.push('--require');
+argVParams.push(path.resolve(config.steps));
 
 if (program.failFast) {
-    process.argv.push('--fail-fast');
+    argVParams.push('--fail-fast');
 }
 
 // add tag(s)
@@ -217,18 +218,18 @@ if (program.tags) {
     });
 
     program.tags.forEach(function (tag) {
-        process.argv.push('-t');
-        process.argv.push(tag);
+        argVParams.push('-t');
+        argVParams.push(tag);
     });
 }
 
 if (program.worldParameters) {
-    process.argv.push('--world-parameters');
-    process.argv.push(program.worldParameters);
+    argVParams.push('--world-parameters');
+    argVParams.push(program.worldParameters);
 }
 
 // add strict option (fail if there are any undefined or pending steps)
-process.argv.push('-S');
+// process.argv.push('-S');
 
 // // abort the run on first failure
 // process.argv.push('--fail-fast');
@@ -236,7 +237,12 @@ process.argv.push('-S');
 //
 // execute cucumber
 //
-var cucumberCli = new cucumber.Cli(process.argv);
+const cliConfig = {
+  argv: argVParams,
+  cwd: process.cwd(),
+  stdout: process.stdout
+};
+var cucumberCli = new cucumber.Cli(cliConfig);
 
 global.cucumber = cucumber;
 
