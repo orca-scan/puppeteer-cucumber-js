@@ -13,7 +13,7 @@ module.exports = {
      * @example
      *      await helpers.loadPage('http://www.google.com');
      */
-    loadPage: function(url, waitInSeconds) {
+    loadPage: function(page, url, waitInSeconds) {
 
         // use either passed in timeout or global default
         var timeout = (waitInSeconds) ? (waitInSeconds * 1000) : DEFAULT_TIMEOUT;

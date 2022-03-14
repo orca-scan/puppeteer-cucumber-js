@@ -1,27 +1,24 @@
-/**
- * world.js is loaded by the cucumber framework before loading the step definitions and feature files
- * it is responsible for setting up and exposing the puppeteer/browser/page/assert etc required within each step definition
- */
+/* eslint new-cap: "off" */
+const { World, Before, After, BeforeAll, AfterAll, setDefaultTimeout } = require('@cucumber/cucumber');
 
 var fs = require('fs-plus');
 var path = require('path');
 var chalk = require('chalk');
-var puppeteer = require('puppeteer');
-var expect = require('chai').expect;
-var assert = require('chai').assert;
+var rawPuppeteerObject = require('puppeteer');
+var chaiExpect = require('chai').expect;
+var chaiAssert = require('chai').assert;
 var reporter = require('cucumber-html-reporter');
 var cucumberJunit = require('cucumber-junit');
 var edgePaths = require('edge-paths');
-var networkSpeeds = require('../runtime/network-speed.js');
+var networkSpeeds = require('../runtime/network-speed');
 
 var platform = process.platform;
 var edgePath = '';
 
 try {
     edgePath = (platform === 'darwin' || platform === 'win32') ? edgePaths.getEdgePath() : '';
-}
-catch (e) {
-    console.log('Microsoft Edge not found');
+} catch (e) {
+    // no action, edge not found.
 }
 
 var browserWidth = 1024;
@@ -31,44 +28,18 @@ var browserHeight = 768;
  * log output to the console in a readable/visible format
  * @returns {void}
  */
-function trace() {
-    var args = [].slice.call(arguments);
+function traceFn(...params) {
+    var args = [].slice.call(params);
     var output = chalk.bgBlue.white('\n>>>>> \n' + args + '\n<<<<<\n');
 
     console.log(output);
 }
 
 /**
- * Creates a list of variables to expose globally and therefore accessible within each step definition
- * @returns {void}
- */
-function createWorld() {
-
-    var runtime = {
-        puppeteer: puppeteer,                       // the raw puppeteer object
-        browser: null,                              // puppeteer browser object
-        page: null,                                 // puppeteer page object
-        expect: expect,                             // expose chai expect to allow variable testing
-        assert: assert,                             // expose chai assert to allow variable testing
-        trace: trace                                // expose an info method to log output to the console in a readable/visible format
-    };
-
-    // expose properties to step definition methods via global variables
-    Object.keys(runtime).forEach(function (key) {
-        if (key === 'driver' && browserTeardownStrategy !== 'always') {
-            return;
-        }
-
-        // make property/method available as a global (no this. prefix required)
-        global[key] = runtime[key];
-    });
-}
-
-/**
  * Executes browser teardown strategy
  * @returns {Promise} resolves once teardown complete
  */
-function teardownBrowser() {
+function teardownBrowser(browser) {
     switch (browserTeardownStrategy) {
         case 'none':
             return Promise.resolve();
@@ -84,21 +55,26 @@ function teardownBrowser() {
     }
 }
 
-// export the "World" required by cucumber to allow it to expose methods within step def's
-module.exports = async function () {
+class CustomWorld extends World {
+    constructor(options) {
+        super(options);
 
-    createWorld();
+        var puppeteer = rawPuppeteerObject;                       // the raw puppeteer object
+        var browser = null;                              // puppeteer browser object
+        var page = null;                                 // puppeteer page object
+        var expect = chaiExpect;                             // expose chai expect to allow variable testing
+        var assert = chaiAssert;                             // expose chai assert to allow variable testing
+        var trace = traceFn;                               // expose an info method to log output to the console in a readable/visible format
 
-    // this.World must be set!
-    this.World = createWorld;
+    }
+}
 
-    // set the default timeout for all tests
-    this.setDefaultTimeout(global.DEFAULT_TIMEOUT);
+CustomWorld.setup = function () {
 
-    // create the browser before scenario if it's not instantiated
-    this.registerHandler('BeforeScenario', async function () {
+    setDefaultTimeout(global.DEFAULT_TIMEOUT);
 
-        if (!global.browser) {
+    Before(async function () {
+        if (!this.browser) {
             var browserOptions = {
                 headless: headless === true,
                 product: browserName || 'chrome',
@@ -110,31 +86,32 @@ module.exports = async function () {
                 ]
             };
 
-            if (browserPath !== '') {
+            if (this.browserPath !== '') {
                 delete browserOptions.product;
-                browserOptions.executablePath = browserPath;
+                browserOptions.executablePath = this.browserPath;
             }
             else if (browserName === 'edge') {
                 delete browserOptions.product;
                 browserOptions.executablePath = edgePath;
             }
 
-            global.browser = await puppeteer.launch(browserOptions);
+            this.browser = await rawPuppeteerObject.launch(browserOptions);
         }
 
-        if (!global.page) {
+        if (!this.page) {
 
             // chrome opens with exist tab
-            var pages = await browser.pages();
+            var pages = await this.browser.pages();
 
             // using first tab
-            global.page = pages[0];
+            this.page = pages[0];
 
             // throttle network if required
             if (global.networkSpeed) {
 
                 // connect to dev tools
-                var client = await page.target().createCDPSession();
+                var client = await this.page.target()
+                    .createCDPSession();
 
                 // set throttling
                 await client.send('Network.emulateNetworkConditions', global.networkSpeed);
@@ -145,9 +122,25 @@ module.exports = async function () {
                 await page.setUserAgent(userAgent);
             }
         }
-    });
 
-    this.registerHandler('AfterFeatures', function (features, done) {
+    });
+    After(async function (scenario) {
+
+        const isFailed = scenario.result.status === 'FAILED';
+
+        // if we have a page object and there is an error
+        if (this.page && isFailed && !global.noScreenshot) {
+
+            // take a screenshot
+            var screenshot = await page.screenshot({ encoding: 'base64', fullPage: true });
+
+            // add a screenshot to the error report
+            scenario.attach(Buffer.from(screenshot, 'base64'), 'image/png');
+        }
+
+        return teardownBrowser(this.browser);
+    });
+    AfterAll(async function () {
 
         var cucumberReportPath = path.resolve(global.reportsPath, 'cucumber-report.json');
 
@@ -166,7 +159,9 @@ module.exports = async function () {
             reporter.generate(reportOptions);
 
             // grab the file data
-            var reportRaw = fs.readFileSync(cucumberReportPath).toString().trim();
+            var reportRaw = fs.readFileSync(cucumberReportPath)
+                .toString()
+                .trim();
             var xmlReport = cucumberJunit(reportRaw);
             var junitOutputPath = path.resolve(global.reportsPath, 'junit-report.xml');
 
@@ -174,22 +169,8 @@ module.exports = async function () {
         }
 
         // teardownBrowser().then(done);
-        teardownBrowser().then(done);
-    });
-
-    // executed after each scenario (always closes the browser to ensure fresh tests)
-    this.After(async function (scenario) {
-
-        // if we have a page object and there is an error
-        if (page && scenario.isFailed() && !global.noScreenshot) {
-
-            // take a screenshot
-            var screenshot = await page.screenshot({ encoding: 'base64', fullPage: true });
-
-            // add a screenshot to the error report
-            scenario.attach(Buffer.from(screenshot, 'base64'), 'image/png');
-        }
-
-        return teardownBrowser();
+        return teardownBrowser(this.browser);
     });
 };
+
+module.exports = CustomWorld;
