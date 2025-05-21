@@ -111,6 +111,7 @@ module.exports = {
      */
     waitForEvent: async function(eventName, waitInSeconds) {
 
+        var self = this;
         // use either passed in timeout or global default
         var timeout = (waitInSeconds) ? (waitInSeconds * 1000) : DEFAULT_TIMEOUT;
 
@@ -127,7 +128,7 @@ module.exports = {
             }, eventName),
 
             // if the event does not fire within n seconds, exit
-            page.waitForTimeout(timeout)
+            self.waitForTimeout(timeout)
         ]);
     },
 

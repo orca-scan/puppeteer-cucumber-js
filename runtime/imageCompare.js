@@ -85,7 +85,7 @@ module.exports = {
             const resultPathNegative = `${resultDirNegative}${filename}`;
             const resultPathPositive = `${resultDirPositive}${filename}`;
             while (typeof result === 'undefined') {
-                await page.waitForTimeout(100);
+                await helpers.waitForTimeout(100);
             }
             const error = parseFloat(result.misMatchPercentage); // value this.pass is called with
             fs.ensureDirSync(diffDirNegative); // Make sure destination folder exists, if not, create it
@@ -128,7 +128,7 @@ module.exports = {
 
             if (pass) {
                 console.log(`image Match for ${filename} with ${value}% difference.`);
-                await page.waitForTimeout(1000);
+                await helpers.waitForTimeout(1000);
             }
 
             if (err === true && program.updateBaselineImages) {

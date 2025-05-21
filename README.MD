@@ -336,7 +336,7 @@ If there is dynamic content (i.e. a clock), hide this element by passing the sel
 ```js
 // usage within page-object file:
   await helpers.takeImage(fileName, [elementsToHide, elementsToHide]);
-  await page.waitForTimeout(100);
+  await helpers.waitForTimeout(100);
   await helpers.compareImage(fileName);
 ```
 
