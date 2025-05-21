@@ -24,3 +24,6 @@ jobs:
         node-version: '16.20.1'
     - run: npm install
     - run: npm test
+      env:
+        PUPPETEER_EXECUTABLE_PATH: /usr/bin/chromium-browser
+        PUPPETEER_ARGS: --no-sandbox
