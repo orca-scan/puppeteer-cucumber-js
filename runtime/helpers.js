@@ -308,6 +308,17 @@ module.exports = {
         const diff = new PNG({ width, height });
         const numDiffPixels = pixelmatch(img1.data, img2.data, diff.data, width, height, { threshold: 0.1 });
         return numDiffPixels;
+    },
+
+    /**
+     * Wait for a timeout
+     * @param {integer} timeout - number of seconds to wait
+     * @returns {Promise} resolves when done
+     */
+    waitForTimeout: async function (timeout) {
+        return new Promise(function (r) {
+            setTimeout(r, timeout);
+        });
     }
 
 };
