@@ -23,6 +23,8 @@ jobs:
       with:
         node-version: '16.20.1'
     - run: npm install
+    # Disable AppArmor
+    - run: echo 0 | sudo tee /proc/sys/kernel/apparmor_restrict_unprivileged_userns
     - run: npm test
       env:
         PUPPETEER_EXECUTABLE_PATH: /usr/bin/chromium-browser
