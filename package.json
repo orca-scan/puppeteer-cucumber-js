@@ -14,7 +14,8 @@
     "dev": "node index.js --tags @search"
   },
   "engines": {
-    "node": ">=11.15.0"
+      "node": "16.20.1",
+      "npm": "8.19.4"
   },
   "engineStrict": true,
   "author": "https://orcascan.com",
@@ -47,7 +48,7 @@
     "merge": "^1.2.1",
     "node-resemble-js": "^0.2.0",
     "pixelmatch": "^5.2.1",
-    "puppeteer": "^22.8.2",
+    "puppeteer": "^21.11.0",
     "require-dir": "0.3.2",
     "text-files-loader": "^1.0.5"
   },
