@@ -1,6 +1,6 @@
 {
   "name": "puppeteer-cucumber-js",
-  "version": "1.6.2",
+  "version": "1.7.0",
   "description": "Browser Automation framework using puppeteer and cucumber-js",
   "main": "index.js",
   "bin": {
@@ -47,7 +47,7 @@
     "merge": "^1.2.1",
     "node-resemble-js": "^0.2.0",
     "pixelmatch": "^5.2.1",
-    "puppeteer": "^7.0.4",
+    "puppeteer": "^22.8.2",
     "require-dir": "0.3.2",
     "text-files-loader": "^1.0.5"
   },
