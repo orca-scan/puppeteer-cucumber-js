@@ -47,7 +47,7 @@ module.exports = {
             page = await browser.newPage();
             await page.goto(url, {
                 timeout: DEFAULT_TIMEOUT,
-                waitUntil: 'networkidle0',
+                waitUntil: 'networkidle2',
                 ...options
             });
         }
