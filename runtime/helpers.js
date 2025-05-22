@@ -19,7 +19,7 @@ module.exports = {
         var timeout = (waitInSeconds) ? (waitInSeconds * 1000) : DEFAULT_TIMEOUT;
 
         // load the url and wait for all requests to end
-        return page.goto(url, { timeout: timeout, waitUntil: 'networkidle0' });
+        return page.goto(url, { timeout: timeout, waitUntil: 'networkidle2' });
     },
 
     /**
