@@ -58,6 +58,7 @@ program
     .option('--slowMo <number>', 'specified amount of milliseconds to slow down Puppeteer operations by. Defaults to ' + config.slowMo)
     .option('--networkSpeed <name>', 'simulate connection speeds, options are: gprs, 2g, 3g, 4g, dsl, wifi. Defaults is unset (full speed)')
     .option('--updateBaselineImage', 'automatically update the baseline image after a failed comparison')
+    .option('--browserArgs <args>', 'browser args to pass to puppeteer, e.g. "--browserArgs=disable-web-security,disable-gpu" it will automatically add the -- prefix to each argument', '')
     .parse(process.argv);
 
 program.on('--help', function () {
@@ -66,6 +67,7 @@ program.on('--help', function () {
 
 // name of the browser to use for the test
 global.browserName = program.browser || global.browserName;
+global.browserArgs = program.browserArgs ? program.browserArgs.split(',').map(v => `--${v}`) : [];
 
 // if user specified a browser path, check it exists first
 if (program.browserPath) {

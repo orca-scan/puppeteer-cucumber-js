@@ -98,6 +98,8 @@ module.exports = async function () {
     // create the browser before scenario if it's not instantiated
     this.registerHandler('BeforeScenario', async function () {
 
+        var browserArgs = global.browserArgs || [];
+
         if (!global.browser) {
             var browserOptions = {
                 headless: headless === true,
@@ -106,7 +108,8 @@ module.exports = async function () {
                 devtools: devTools === true,
                 slowMo: global.DEFAULT_SLOW_MO, // slow down by specified ms so we can view in headful mode
                 args: [
-                    `--window-size=${browserWidth},${browserHeight}`
+                    `--window-size=${browserWidth},${browserHeight}`,
+                    ...browserArgs // pass any additional args specified by the user
                 ]
             };
 
